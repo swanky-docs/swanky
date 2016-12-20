@@ -1,0 +1,8 @@
+<div class="colour-drop-wrapper">
+  <div class="colour-drop" style="background: {$ data.hex if data.hex else '#000' $}"></div>
+  <div class="colour-drop-meta">
+    <div class="colour-drop-name">{$ data.name if data.name else 'Black' $}</div>
+    <div class="colour-drop-code"><strong>RGB</strong> {$ data.rgb if data.rgb else '30, 30, 30' $}</div>
+    <div class="colour-drop-code"><strong>HEX</strong> {$ data.hex if data.hex else '#000000' $}</div>
+  </div>
+</div>

@@ -1,0 +1,121 @@
+{
+  "name": "swanky",
+  "description": "A simple, flexible and powerful tool for creating beautiful documentation.",
+  "license": "MIT",
+  "author": "Rod Leviton",
+  "main": "src/index.js",
+  "version": "0.0.0-development",
+  "repository": {
+    "url": "https://github.com/swanky-docs/swanky.git",
+    "type": "git"
+  },
+  "scripts": {
+    "pre-release": "npm-run-all verify test:unit:coverage build ",
+    "build": "npm run clean:prod",
+    "clean:prod": "rimraf build/",
+    "commit": "git-cz",
+    "dev": "npm run verify:watch",
+    "exact-semver": "exact-semver",
+    "report-coverage": "cat ./coverage/coverage-final.json | codecov",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
+    "start": "npm run dev",
+    "jest": "jest",
+    "test": "NODE_ENV=test npm run test:unit",
+    "test:unit": "jest --watch --coverage",
+    "test:unit:debug": "node --debug-brk ./node_modules/.bin/jest -i",
+    "test:unit:coverage": "NODE_ENV=test jest --coverage --silent",
+    "verify": "npm run verify:js --silent",
+    "verify:js": "eslint -c config/verify/.eslintrc \"src/**/*.js\" \"test/**/*.js\" \"config/**/*.js\" && echo verify:js success",
+    "verify:js:watch": "chokidar 'src/**/*.js' 'test/**/*.js' 'config/**/*.js' -c 'npm run verify:js' --initial --silent",
+    "verify:watch": "npm run verify:js:watch --silent"
+  },
+  "peerDependencies": {
+    "webpack": "^2.2.0-rc"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-customizable"
+    },
+    "cz-customizable": {
+      "config": "config/release/commitMessageConfig.js"
+    },
+    "ghooks": {
+      "pre-commit": "npm run exact-semver",
+      "pre-push": "npm-run-all verify test:unit:coverage --silent"
+    }
+  },
+  "dependencies": {
+    "async": "2.1.4",
+    "autoprefixer": "6.5.4",
+    "babel-core": "6.20.0",
+    "babel-loader": "6.2.10",
+    "babel-preset-es2015": "6.18.0",
+    "bluebird": "3.4.6",
+    "browser-sync": "2.18.5",
+    "chalk": "1.1.3",
+    "css-loader": "0.26.1",
+    "css-modules-require-hook": "4.0.5",
+    "extract-text-webpack-plugin": "^2.0.0-beta",
+    "file-loader": "0.9.0",
+    "fs-extra": "1.0.0",
+    "glob": "7.1.1",
+    "he": "1.1.0",
+    "html-loader": "0.4.4",
+    "html-webpack-plugin": "2.24.1",
+    "install": "0.8.2",
+    "js-yaml": "3.7.0",
+    "less": "2.7.1",
+    "less-loader": "2.2.3",
+    "loader-utils": "0.2.16",
+    "lodash": "4.17.2",
+    "minimatch": "3.0.3",
+    "node-sass": "4.0.0",
+    "nunjucks": "3.0.0",
+    "postcss": "5.2.6",
+    "postcss-loader": "1.2.1",
+    "postcss-modules": "0.5.2",
+    "sass-loader": "4.1.0",
+    "showdown": "1.5.1",
+    "style-loader": "0.13.1",
+    "stylus": "0.54.5",
+    "stylus-loader": "2.4.0",
+    "url-loader": "0.5.7",
+    "webpack": "^2.2.0-rc",
+    "webpack-dev-middleware": "1.9.0",
+    "webpack-hot-middleware": "2.13.2"
+  },
+  "devDependencies": {
+    "chokidar-cli": "1.2.0",
+    "codecov.io": "0.1.6",
+    "cz-conventional-changelog": "1.2.0",
+    "cz-customizable": "4.0.0",
+    "cz-customizable-ghooks": "1.3.0",
+    "eslint": "3.12.2",
+    "eslint-config-defaults": "9.0.0",
+    "exact-semver": "1.2.0",
+    "ghooks": "1.3.2",
+    "graceful-fs": "4.1.11",
+    "jest-cli": "18.0.0",
+    "npm-run-all": "3.1.2",
+    "rimraf": "2.5.4",
+    "semantic-release": "^6.3.2",
+    "stringstream": "^0.0.5"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "rootDir": "src",
+    "collectCoverageFrom": [
+      "*.js",
+      "**/*.js",
+      "!__tests__/fixtures/**"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 100,
+        "functions": 100,
+        "lines": 100,
+        "statements": 100
+      }
+    }
+  }
+}

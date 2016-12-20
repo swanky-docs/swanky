@@ -1,0 +1,7 @@
+# Common folders to ignore
+node_modules/*
+bower_components/*
+
+# Config folder (optional - you might want to lint this...)
+config/*
+

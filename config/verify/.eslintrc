@@ -1,0 +1,34 @@
+extends: defaults/configurations/google
+
+env:
+  jasmine: true
+  node: true
+
+  commonjs: true    # For Webpack, CommonJS
+
+  es6: true
+  jest: true
+  mocha: true
+
+confit-globals: &confit-globals
+
+ecmaFeatures:
+  modules: true
+
+globals:
+  <<: *confit-globals
+
+rules:
+  max-len:
+    - 2       # Warning
+    - 200     # Line Length
+
+  dot-location:
+    - 1       #error
+    - property
+
+  no-unused-vars:
+    - 1
+
+  object-curly-spacing:
+    - 0

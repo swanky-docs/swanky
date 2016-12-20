@@ -1,0 +1,19 @@
+{
+  "title":"test",
+  "repo":"https://github.com",
+  "version":"0.0.0",
+  "src":"mock-docs",
+  "theme":"mock-docs/themes/test-theme",
+  "output":"build",
+  "snippets":"mock-docs/snippets",
+  "sections":[
+    {
+      "title":"Foundation",
+      "content":[
+        {
+          "src":"docs/content/foundation/01-overview.md"
+        }
+      ]
+    }
+  ]
+}
