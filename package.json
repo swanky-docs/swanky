@@ -4,7 +4,7 @@
   "license": "MIT",
   "author": "Rod Leviton",
   "main": "src/index.js",
-  "version": "0.0.0-semantically-released",
+  "version": "0.0.0-development",
   "repository": {
     "url": "https://github.com/swanky-docs/swanky.git",
     "type": "git"
