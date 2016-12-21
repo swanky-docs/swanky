@@ -10,10 +10,10 @@
 # Swanky
 > A simple, flexible and powerful tool for creating beautiful documentation.
 
-### What is Swanky?
+## What is Swanky?
 Still not sure? Swanky is a framework that enables you to create beautiful documentation from any source that you can provide it with. Swanky can be viewed as a type of static site generator that has been specifically focused on doing one thing well - __documentation__. Swanky can be used to create API documentation, Living and Breathing __Pattern Libraries__ or maybe a combination of both. There really is no limit to what you can document with Swanky.
 
-### Why Swanky Over Other Documentation Tools?
+## Why Swanky Over Other Documentation Tools?
 Unlike other documentation tools Swanky does not enforce a specific way of writing documentation or require you to use any custom markup. Swanky embraces how you already make your documentation e.g. *markdown files*, *comments in your code*, *documentation on github*... With the flexibility and power of Swanky __processors__ you can capture any source and turn it into beautiful documentation.
 
 ---
@@ -24,7 +24,7 @@ Unlike other documentation tools Swanky does not enforce a specific way of writi
 
 ---
 
-### Quick Start Guide
+## Quick Start Guide
 
 Swanky can be installed independently or configured for you using the [swanky-cli](https://github.com/swanky-docs/swanky-cli) tool. 
 If you encounter any problems, please submit a [GitHub issue](https://github.com/swanky-docs/swanky/issues) and we'll do our best to help you with it.
