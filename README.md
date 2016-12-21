@@ -16,8 +16,6 @@ Still not sure? Swanky is a framework that enables you to create beautiful docum
 ## Why Swanky Over Other Documentation Tools?
 Unlike other documentation tools Swanky does not enforce a specific way of writing documentation or require you to use any custom markup. Swanky embraces how you already make your documentation e.g. *markdown files*, *comments in your code*, *documentation on github*... With the flexibility and power of Swanky __processors__ you can capture any source and turn it into beautiful documentation.
 
----
-
 <img src="https://github.com/swanky-docs/swanky/blob/master/img/screenshot.gif" alt="Swanky Demo" width="960">
 
 [View demo pattern library](https://swanky-docs.github.io/demo/)
@@ -32,8 +30,6 @@ If you encounter any problems, please submit a [GitHub issue](https://github.com
 ```
 npm install swanky --save-dev
 ```
-
----
 
 ## Documentation
 
