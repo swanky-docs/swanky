@@ -35,18 +35,20 @@ npm install swanky --save-dev
 
 ---
 
-### Documentation
+## Documentation
 
 View the full documentation here.
 
 [Swanky - Documentation](https://swanky-docs.github.io/docs/)
 
----
+## Changelog
+
+Details changes for each release are documented in the [release notes](https://github.com/swanky-docs/swanky/releases).
     
 <!--[RM_CONTRIBUTING]-->
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md).
+Please make sure to read the [Contributing Guide](https://github.com/swanky-docs/swanky/blob/master/CONTRIBUTING.md) before making a pull request.
 
 <!--[]-->
 
@@ -54,5 +56,8 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 ## License
 
 This software is licensed under the MIT Licence. See [LICENSE](LICENSE).
+
+
+Copyright (c) 2017 Rod Leviton
 
 <!--[]-->
