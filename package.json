@@ -10,9 +10,7 @@
     "type": "git"
   },
   "scripts": {
-    "pre-release": "npm-run-all verify test:unit:coverage build ",
-    "build": "npm run clean:prod",
-    "clean:prod": "rimraf build/",
+    "pre-release": "npm-run-all verify test:unit:coverage",
     "commit": "git-cz",
     "dev": "npm run verify:watch",
     "exact-semver": "exact-semver",
@@ -25,8 +23,8 @@
     "test:unit:debug": "node --debug-brk ./node_modules/.bin/jest -i",
     "test:unit:coverage": "NODE_ENV=test jest --coverage --silent",
     "verify": "npm run verify:js --silent",
-    "verify:js": "eslint -c config/verify/.eslintrc \"src/**/*.js\" \"test/**/*.js\" \"config/**/*.js\" && echo verify:js success",
-    "verify:js:watch": "chokidar 'src/**/*.js' 'test/**/*.js' 'config/**/*.js' -c 'npm run verify:js' --initial --silent",
+    "verify:js": "eslint -c config/verify/.eslintrc \"src/**/*.js\" \"config/**/*.js\" && echo verify:js success",
+    "verify:js:watch": "chokidar 'src/**/*.js' 'config/**/*.js' -c 'npm run verify:js' --initial --silent",
     "verify:watch": "npm run verify:js:watch --silent"
   },
   "peerDependencies": {
