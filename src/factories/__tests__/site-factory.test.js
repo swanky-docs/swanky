@@ -3,6 +3,7 @@
 const path = require('path');
 const siteFactory = require('../site-factory');
 
+let DEFAULTS;
 let site;
 let expectedResult;
 
@@ -34,6 +35,9 @@ beforeEach(() => {
       }
     ]
   };
+
+  // Reset defaults
+  DEFAULTS = require('./../../constants.js');
 
   expectedResult = {
     title: 'My Swanky Docs',
@@ -82,32 +86,26 @@ describe('siteFactory', () => {
     expect(siteFactory(site)).toEqual(expectedResult);
   });
 
-  it('should throw an error if no config is provided', () => {
-    expect(() => siteFactory()).toThrowError('Missing Swanky config.');
-  });
-
-  it('should throw an error if no theme is specified', () => {
-    delete site.theme; // remove the theme key completely
-
-    expect(() => siteFactory(site)).toThrowError('Missing "theme" property. "theme" MUST be specified in Swanky config.');
-  });
-
   it('should provide defaults for values that are not provided', () => {
     // Remove values
     delete site.title;
     delete site.src;
     delete site.output;
+    delete site.theme;
     delete site.repo;
     delete site.version;
     delete site.snippets;
     delete site.layouts;
     delete site.partials;
 
+    // Mutate the defaults for test purposes only
+    DEFAULTS.SITE_CONFIG.theme = './__mocks__/__fixtures__/theme';
+
     // update result object to match defaults
     expectedResult.title = 'Swanky Docs';
-    expectedResult.src = path.join(process.cwd(), 'docs');
-    expectedResult.output = path.join(process.cwd(), 'build');
-    expectedResult.snippets = path.join(process.cwd(), 'docs/snippets');
+    expectedResult.src = path.join(process.cwd(), 'src');
+    expectedResult.output = path.join(process.cwd(), 'docs');
+    expectedResult.snippets = path.join(process.cwd(), 'src/snippets');
     expectedResult.version = '0.0.0';
     expectedResult.repository = null;
 

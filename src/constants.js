@@ -56,5 +56,15 @@ module.exports = {
       title: 'No Content',
       content: 'none'
     }
-  ]
+  ],
+  SITE_CONFIG: {
+    title: 'Swanky Docs',
+    src: 'src',
+    output: 'docs',
+    theme: '../../node_modules/swanky-theme',
+    snippets: 'snippets',
+    layouts: 'templates/layouts',
+    partials: 'templates/partials',
+    version: '0.0.0'
+  }
 };

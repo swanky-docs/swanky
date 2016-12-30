@@ -1,16 +1,18 @@
 'use strict';
 
-const fs = require('fs');
+const fs = require('fs-extra');
 const path = require('path');
 const yaml = require('js-yaml');
 
 /**
  * Handle loading Swanky Config file
- * @param {String} config - location of Swanky config file relative to the working directory
+ * @param {String} configPath - location of Swanky config file
  * @return {Object} - JSON formatted Swanky configuration
  */
-module.exports = (config) => {
-  const configPath = path.resolve(process.cwd(), config);
+module.exports = (configPath) => {
+  if (!fs.existsSync(configPath)) {
+    throw new Error('Missing Swanky config.');
+  }
 
   switch(path.extname(configPath)) {
   case '.json':
@@ -18,7 +20,7 @@ module.exports = (config) => {
   case '.js':
     return loadJSConfig(configPath);
   default:
-    return loadYAMLConfig(configPath);
+    return loadYAMLConfig(configPath) || {};
   }
 };
 
@@ -46,9 +48,5 @@ function loadJSONConfig(configPath) {
  * @return {Object} - JSON formatted Swanky configuration
  */
 function loadYAMLConfig(configPath) {
-  try {
-    return yaml.safeLoad(fs.readFileSync(configPath, 'utf8'));
-  } catch (e) {
-    throw new Error('Cannot parse configuration file. Please make sure your Swanky configuration file exists.');
-  }
+  return yaml.safeLoad(fs.readFileSync(configPath, 'utf8'));
 }

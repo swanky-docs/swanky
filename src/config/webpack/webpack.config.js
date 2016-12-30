@@ -11,7 +11,7 @@ const DEFAULTS = require('./../../constants.js');
 module.exports = (CONFIG, SWANKY_CONFIG) => {
   const BASE_PATH = process.cwd();
   const SECTIONS_CONFIG = getSectionsConfig(SWANKY_CONFIG.sections, SWANKY_CONFIG.meta);
-  const THEME_REGEX = new RegExp(`${SWANKY_CONFIG.theme}.*index.styl`);
+  const THEME_REGEX = new RegExp(`${SWANKY_CONFIG.meta.theme}.*index.styl`);
 
   const WEBPACK_CONFIG = {
     devtool: CONFIG.devtool,
@@ -115,16 +115,13 @@ module.exports = (CONFIG, SWANKY_CONFIG) => {
   }
 
   // Snippets
-  if (SWANKY_CONFIG.snippets) {
+  // Make sure we have a folder as well
+  if (fs.existsSync(SWANKY_CONFIG.meta.snippets)) {
+    // Add an entry point to bootstrap snippets
+    const loader = require.resolve('./../../loaders/bootstrap-loader');
+    const template = path.join(__dirname, './../../loaders/bootstrap-loader/bootstrap-loader-template.js');
 
-    // Make sure we have a folder as well
-    if (fs.existsSync(SWANKY_CONFIG.snippets)) {
-      // Add an entry point to bootstrap snippets
-      const loader = require.resolve('./../../loaders/bootstrap-loader');
-      const template = path.join(__dirname, './../../loaders/bootstrap-loader/bootstrap-loader-template.js');
-
-      WEBPACK_CONFIG.entry['snippets'] = `${loader}?src=${SWANKY_CONFIG.snippets}!${template}`;
-    }
+    WEBPACK_CONFIG.entry['snippets'] = `${loader}?src=${SWANKY_CONFIG.meta.snippets}!${template}`;
   }
 
   SECTIONS_CONFIG.forEach((page, index) => {

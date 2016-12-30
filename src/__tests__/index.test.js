@@ -19,11 +19,11 @@ describe('index', () => {
 
   describe('buildConfig', () => {
     it('should exist', () => {
-      expect(index.buildConfig).toBeDefined();
+      expect(index.build).toBeDefined();
     });
 
     it('should return the production build configuration object', () => {
-      expect(index.buildConfig()).toEqual({});
+      expect(index.build()).toEqual({});
     });
   });
 });

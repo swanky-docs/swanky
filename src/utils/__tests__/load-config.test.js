@@ -15,6 +15,12 @@ describe('loadConfig', () => {
     expect(loadConfig(yamlConfig)).toEqual(expectedResult);
   });
 
+  it('should parse an empty yaml config', () => {
+    const yamlConfig = path.join(__dirname, './../__mocks__/__fixtures__/config/yamlConfigEmpty.yaml');
+
+    expect(loadConfig(yamlConfig)).toEqual({});
+  });
+
   it('should parse a json config', () => {
     const jsonConfig = path.join(__dirname, './../__mocks__/__fixtures__/config/jsonConfig.json');
 
