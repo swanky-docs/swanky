@@ -1,6 +1,5 @@
 'use strict';
 
-const path = require('path');
 const fs = require('fs-extra');
 const loaderUtils = require('loader-utils');
 
@@ -8,7 +7,7 @@ module.exports = function() {
   this.cacheable();
 
   const query = loaderUtils.parseQuery(this.query);
-  const files = fs.walkSync(path.join(process.cwd(), query.src));
+  const files = fs.walkSync(query.src);
 
   const matches = files.filter((file) => {
     return file.match(/index.js$/);

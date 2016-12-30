@@ -7,34 +7,17 @@ const basePath = process.cwd();
 const getKey = require('./../utils/get-key');
 const DEFAULTS = require('./../constants');
 
-const DEFAULT_SITE_CONFIG = {
-  title: 'Swanky Docs',
-  src: 'docs',
-  output: 'build',
-  snippets: 'snippets',
-  layouts: 'templates/layouts',
-  partials: 'templates/partials',
-  version: '0.0.0'
-};
-
 /**
  * Site Factory
  * @param {object} config - Swanky configuration
  * @return {object} - site configuration object
  */
 function siteFactory(config) {
-  if (!config) {
-    throw new Error('Missing Swanky config.');
-  }
-
-  if (!config.theme) {
-    throw new Error('Missing "theme" property. "theme" MUST be specified in Swanky config.');
-  }
 
   return {
-    title: config.title || DEFAULT_SITE_CONFIG.title,
+    title: config.title || DEFAULTS.SITE_CONFIG.title,
     src: getSourcePath(config.src),
-    output: path.join(basePath, config.output || DEFAULT_SITE_CONFIG.output),
+    output: path.join(basePath, config.output || DEFAULTS.SITE_CONFIG.output),
     navigation: getSiteNavigation(config.sections),
     theme: getThemePath(config.theme),
     layouts: getLayouts(config.theme, config.layouts),
@@ -47,7 +30,7 @@ function siteFactory(config) {
     repository: config.repo || null,
     production: false,
     serverPath: getServerPath(config.serverPath),
-    version: config.version || DEFAULT_SITE_CONFIG.version
+    version: config.version || DEFAULTS.SITE_CONFIG.version
   };
 }
 
@@ -87,11 +70,11 @@ const getSiteNavigation = (sections) => {
 };
 
 const getSourcePath = (src) => {
-  return src ? path.join(basePath, src) : path.join(basePath, DEFAULT_SITE_CONFIG.src);
+  return src ? path.join(basePath, src) : path.join(basePath, DEFAULTS.SITE_CONFIG.src);
 };
 
 const getThemePath = (theme) => {
-  return path.join(basePath, theme);
+  return theme ? path.join(basePath, theme) : path.join(__dirname, DEFAULTS.SITE_CONFIG.theme);
 };
 
 const getServerPath = (serverPath) => {
@@ -99,7 +82,7 @@ const getServerPath = (serverPath) => {
 };
 
 const getLayouts = (theme, layouts) => {
-  return layouts ? path.join(basePath, layouts) : path.join(getThemePath(theme), DEFAULT_SITE_CONFIG.layouts);
+  return layouts ? path.join(basePath, layouts) : path.join(getThemePath(theme), DEFAULTS.SITE_CONFIG.layouts);
 };
 
 const getRenderTemplate = (theme, partials) => {
@@ -115,11 +98,11 @@ const getContentWrapperTemplate = (theme, partials) => {
 };
 
 const getPartials = (theme, partials) => {
-  return partials ? path.join(basePath, partials) : path.join(getThemePath(theme), DEFAULT_SITE_CONFIG.partials);
+  return partials ? path.join(basePath, partials) : path.join(getThemePath(theme), DEFAULTS.SITE_CONFIG.partials);
 };
 
 const getSnippets = (src, snippets) => {
-  return snippets ? path.join(basePath, snippets) : path.join(getSourcePath(src), DEFAULT_SITE_CONFIG.snippets);
+  return snippets ? path.join(basePath, snippets) : path.join(getSourcePath(src), DEFAULTS.SITE_CONFIG.snippets);
 };
 
 module.exports = siteFactory;

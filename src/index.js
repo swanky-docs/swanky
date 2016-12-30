@@ -8,7 +8,7 @@ module.exports = {
   devServer: (swankyConfigFilePath, webpackExtendConfig) => {
     return serve(createConfig(swankyConfigFilePath), webpackExtendConfig);
   },
-  buildConfig: (swankyConfigFilePath, webpackExtendConfig) => {
+  build: (swankyConfigFilePath, webpackExtendConfig) => {
     return build(createConfig(swankyConfigFilePath), webpackExtendConfig);
   }
 };

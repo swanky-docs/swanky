@@ -63,6 +63,10 @@ browserSync.mockImplementation(() => {
 });
 
 describe('Serve config', () => {
+  beforeEach(() => {
+    console.log = jest.genMockFn();
+  });
+
   it('should exist', () => {
     expect(serve).toBeDefined();
   });

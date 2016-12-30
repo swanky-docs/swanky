@@ -16,6 +16,7 @@ beforeEach(() => {
       repo: 'https://github.com',
       version: '0.0.0',
       src: path.join(__dirname, './../__mocks__/__fixtures__/docs'),
+      snippets: path.join(__dirname, './../__mocks__/__fixtures__/docs/snippets'),
       theme: path.join(__dirname, './../__mocks__/__fixtures__/docs/theme'),
       layouts: path.join(__dirname, './../__mocks__/__fixtures__/docs/theme/templates/layouts'),
       partials: path.join(__dirname, './../__mocks__/__fixtures__/docs/theme/templates/partials'),
@@ -92,17 +93,9 @@ describe('Webpack config', () => {
     expect(config.entry.docs).toEqual([path.join(__dirname, './../__mocks__/__fixtures__/docs/docs.js')]);
   });
 
-  it('should not create a snippets entry point if snippets are not specified', () => {
-    // Remove snippets completely
-    delete mockSwankyConfig.snippets;
-    let config = mergeConfig(mockSwankyConfig);
-
-    expect(config.entry.snippets).not.toBeDefined();
-  });
-
   it('should not create a snippets entry point if specified snippets folder does not exist', () => {
     // Add snippets back in
-    mockSwankyConfig.snippets = 'some/non/existent/directory';
+    mockSwankyConfig.meta.snippets = 'some/non/existent/directory';
     let config = mergeConfig(mockSwankyConfig);
 
     expect(config.entry.snippets).not.toBeDefined();
