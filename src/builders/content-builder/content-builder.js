@@ -1,7 +1,8 @@
 'use strict';
 
+const Promise = require('bluebird');
 const addContent = require('./actions/add-content');
-const getContent = require('./actions/read-content');
+const readContent = require('./actions/read-content');
 
 /**
  * Compile page content
@@ -14,7 +15,7 @@ function ContentBuilder() {
    * @returns {Promise} - modified page object
    */
   this.build = function(page) {
-    return getContent(page)
+    return Promise.map(page.fileDependencies, (item) => readContent(item))
       .then(() => addContent(page));
   };
 }
