@@ -3,10 +3,15 @@
 const path = require('path');
 const readContent = require('./../read-content');
 
+jest.mock('request');
+const request = require('request');
+
 let mockPage;
 let mockResult;
 
 beforeEach(() => {
+  console.log = jest.genMockFn();
+
   mockPage = {
     // We only care about file dependencies here
     fileDependencies: [
@@ -28,7 +33,7 @@ beforeEach(() => {
         type: 'content',
         processedContent: [],
         contentSrc: [
-          path.join(__dirname, './../__mocks__/__fixtures__/content', 'foundation.txt')
+          'http://some-url.com'
         ]
       }
     ]
@@ -39,7 +44,7 @@ beforeEach(() => {
       processedContent: 'Overview'
     },
     {
-      processedContent: 'Foundation'
+      processedContent: 'Hello World'
     }
   ];
 });
@@ -49,24 +54,34 @@ describe('getSnippet', () => {
     expect(readContent).toBeDefined();
   });
 
-  it('should filter fileDependencies that are not of type content', (done) => {
-    readContent(mockPage).then(() => {
-      const result = mockPage.fileDependencies.filter((item) => !!item.processedContent[0]);
-
-      expect(result.length).toEqual(2);
-      done();
+  it('should filter fileDependencies that are not of type content', () => {
+    return readContent(mockPage.fileDependencies[1]).then(() => {
+      expect(mockPage.fileDependencies[1].processedContent[0]).toBeUndefined();
     });
   });
 
-  it('should read fileDependencies for valid content sources', (done) => {
-    readContent(mockPage).then(() => {
-      const result = mockPage.fileDependencies.filter((item) => !!item.processedContent[0]);
+  it('should read fileDependencies for valid internal content sources', () => {
+    return readContent(mockPage.fileDependencies[0]).then(() => {
+      expect(mockPage.fileDependencies[0].processedContent[0]).toBe(mockResult[0].processedContent);
+    });
+  });
 
-      result.forEach((item, index) => {
-        expect(item.processedContent[0]).toBe(mockResult[index].processedContent);
-      });
+  it('should read fileDependencies for valid external content sources', () => {
+    return readContent(mockPage.fileDependencies[2]).then(() => {
+      expect(mockPage.fileDependencies[2].processedContent[0]).toBe(mockResult[1].processedContent);
+    });
+  });
 
-      done();
+  it('should handle an error for invalid external content sources', () => {
+    request.__setMockResponse({
+      error: true,
+      response: {
+        statusCode: 500
+      }
+    });
+
+    return readContent(mockPage.fileDependencies[2]).then(() => {
+      expect(mockPage.fileDependencies[2].processedContent[0]).toBeUndefined();
     });
   });
 });
