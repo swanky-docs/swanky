@@ -93,6 +93,14 @@ describe('Webpack config', () => {
     expect(config.entry.docs).toEqual([path.join(__dirname, './../__mocks__/__fixtures__/docs/docs.js')]);
   });
 
+  it('should not add docs entry point to config if file does not exist', () => {
+    // Update config to point to non-existent path
+    mockSwankyConfig.meta.src = 'some/made/up/path/';
+    let config = mergeConfig(mockSwankyConfig);
+
+    expect(config.entry.docs).toBeUndefined();
+  });
+
   it('should not create a snippets entry point if specified snippets folder does not exist', () => {
     // Add snippets back in
     mockSwankyConfig.meta.snippets = 'some/non/existent/directory';
