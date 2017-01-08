@@ -14,6 +14,8 @@
     "commit": "git-cz",
     "dev": "npm run verify:watch",
     "exact-semver": "exact-semver",
+    "precommit": "npm run exact-semver",
+    "prepush": "npm-run-all verify test:unit:coverage --silent",
     "report-coverage": "cat ./coverage/coverage-final.json | codecov",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "start": "npm run dev",
@@ -36,10 +38,6 @@
     },
     "cz-customizable": {
       "config": "config/release/commitMessageConfig.js"
-    },
-    "ghooks": {
-      "pre-commit": "npm run exact-semver",
-      "pre-push": "npm-run-all verify test:unit:coverage --silent"
     }
   },
   "dependencies": {
