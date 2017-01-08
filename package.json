@@ -75,7 +75,7 @@
     "request": "2.79.0",
     "sass-loader": "4.1.1",
     "showdown": "1.5.5",
-    "showdown-highlight": "^1.0.0",
+    "showdown-highlight": "1.0.0",
     "style-loader": "0.13.1",
     "stylus": "0.54.5",
     "stylus-loader": "2.4.0",
