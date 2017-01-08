@@ -74,7 +74,7 @@ const getSourcePath = (src) => {
 };
 
 const getThemePath = (theme) => {
-  return theme ? path.join(basePath, theme) : path.join(__dirname, DEFAULTS.SITE_CONFIG.theme);
+  return theme ? path.join(basePath, theme) : path.join(basePath, DEFAULTS.SITE_CONFIG.theme);
 };
 
 const getServerPath = (serverPath) => {

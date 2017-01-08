@@ -99,7 +99,7 @@ describe('siteFactory', () => {
     delete site.partials;
 
     // Mutate the defaults for test purposes only
-    DEFAULTS.SITE_CONFIG.theme = './__mocks__/__fixtures__/theme';
+    DEFAULTS.SITE_CONFIG.theme = './src/factories/__mocks__/__fixtures__/theme';
 
     // update result object to match defaults
     expectedResult.title = 'Swanky Docs';

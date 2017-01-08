@@ -14,4 +14,10 @@ describe('classy', () => {
     expect(renderFn('<strong>Hello</strong>')).toEqual('<strong class=\"{$ styles.strong $}\">Hello</strong>');
     expect(renderFn('<p>Hello</p>')).toEqual('<p class=\"{$ styles.p $}\">Hello</p>');
   });
+
+  it('should retain existing element classes', () => {
+    const renderFn = classy()[0].filter;
+
+    expect(renderFn('<p class="some-class">Hello</p>')).toEqual('<p class=\"some-class {$ styles.p $}\">Hello</p>');
+  });
 });

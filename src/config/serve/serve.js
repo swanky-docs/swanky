@@ -42,7 +42,7 @@ module.exports = (swankyConfig, webpackExtendConfig) => {
           publicPath: webpackConfig.output.publicPath,
           // stats: {
           //   colors: true
-          // },
+          // }
           quiet: true,
           noInfo: false,
           stats: 'errors-only'

@@ -7,13 +7,19 @@ const showdown = require('showdown');
 const shortCode = require('./../../../utils/short-code');
 const wrap = require('./../../../utils/wrap');
 const classy = require('./../../../utils/classy');
+const showdownHighlight = require('showdown-highlight');
 const DEFAULTS = require('./../../../constants.js');
+
+showdown.setFlavor('github');
 
 // Configure showdown markdown extensions
 const markdown = new showdown.Converter({
-  extensions: [shortCode, wrap, classy],
+  extensions: [shortCode, wrap, showdownHighlight, classy],
   tables: true
 });
+
+// Create github style header (spaces are replaced with dashes)
+markdown.setOption('ghCompatibleHeaderId', true);
 
 // Configure nunjucks loader
 // https://mozilla.github.io/nunjucks/api.html#configure
