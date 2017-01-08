@@ -104,14 +104,18 @@ module.exports = (CONFIG, SWANKY_CONFIG) => {
   };
 
   // HMR
-  if (!SWANKY_CONFIG.meta.production) {
-    WEBPACK_CONFIG.entry.docs = [
-      require.resolve('webpack/hot/dev-server'),
-      require.resolve('webpack-hot-middleware/client'),
-      SWANKY_CONFIG.meta.src + '/docs.js'
-    ];
-  } else {
-    WEBPACK_CONFIG.entry.docs = [SWANKY_CONFIG.meta.src + '/docs.js'];
+  const docsScriptPath = path.join(SWANKY_CONFIG.meta.src, '/docs.js');
+
+  if (fs.existsSync(docsScriptPath)) {
+    if (!SWANKY_CONFIG.meta.production) {
+      WEBPACK_CONFIG.entry.docs = [
+        require.resolve('webpack/hot/dev-server'),
+        require.resolve('webpack-hot-middleware/client'),
+        docsScriptPath
+      ];
+    } else {
+      WEBPACK_CONFIG.entry.docs = [docsScriptPath];
+    }
   }
 
   // Snippets
@@ -125,20 +129,34 @@ module.exports = (CONFIG, SWANKY_CONFIG) => {
   }
 
   SECTIONS_CONFIG.forEach((page, index) => {
+
+    const htmlConfig = {
+      key: page.key,
+      chunks: ['theme'],
+      filename: !index ? 'index.html' : page.url,
+      template: '!!' + 'html-loader!' + require.resolve('./../../loaders/swanky-docs-loader') + '?key=' + page.key + '!' + page.layoutSrc,
+      inject: true
+    };
+
+    const faviconPath = path.join(SWANKY_CONFIG.meta.src, 'favicon.ico');
+
+    if (fs.existsSync(faviconPath)) {
+      htmlConfig.favicon = faviconPath;
+    }
+
+    // Only add docs main script file if it exists
+    if (WEBPACK_CONFIG.entry.docs) {
+      htmlConfig.chunks.push('docs');
+    }
+
     // Create dynamic entry points for page specific scripts
     if (page.bootstrap && page.bootstrap.length > 0) {
       WEBPACK_CONFIG.entry[page.key] = page.bootstrap;
+      htmlConfig.chunks.push(WEBPACK_CONFIG.entry[page.key]);
     }
 
     // Create an instance of the HTML Webpack Plugin for each page
-    WEBPACK_CONFIG.plugins = WEBPACK_CONFIG.plugins.concat(new HtmlWebpackPlugin({
-      key: page.key,
-      chunks: ['docs', 'theme'].push(WEBPACK_CONFIG.entry[page.key] ? WEBPACK_CONFIG.entry[page.key] : ''),
-      filename: !index ? 'index.html' : page.url,
-      favicon: `${SWANKY_CONFIG.meta.src}/favicon.ico`,
-      template: '!!' + 'html-loader!' + require.resolve('./../../loaders/swanky-docs-loader') + '?key=' + page.key + '!' + page.layoutSrc,
-      inject: true
-    }));
+    WEBPACK_CONFIG.plugins = WEBPACK_CONFIG.plugins.concat(new HtmlWebpackPlugin(htmlConfig));
   });
 
   // Plugins

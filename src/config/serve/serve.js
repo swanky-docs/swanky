@@ -40,12 +40,12 @@ module.exports = (swankyConfig, webpackExtendConfig) => {
       middleware: [
         webpackDevMiddleware(bundler, {
           publicPath: webpackConfig.output.publicPath,
-          // stats: {
-          //   colors: true
-          // }
-          quiet: true,
-          noInfo: false,
-          stats: 'errors-only'
+          stats: {
+            colors: true
+          }
+          // quiet: true,
+          // noInfo: false,
+          // stats: 'errors-only'
         }),
         webpackHotMiddleware(bundler, {log: false})
       ]
