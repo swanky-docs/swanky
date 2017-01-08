@@ -2466,10 +2466,6 @@ find-config@0.3.0:
   dependencies:
     user-home "^1.1.1"
 
-find-parent-dir@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/find-parent-dir/-/find-parent-dir-0.3.0.tgz#33c44b429ab2b2f0646299c5f9f718f376ff8d54"
-
 find-up@^1.0.0, find-up@^1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/find-up/-/find-up-1.1.2.tgz#6b2e9822b1a2ce0a60ab64d610eccad53cb24d0f"
@@ -2866,9 +2862,13 @@ hawk@~3.1.3:
     hoek "2.x.x"
     sntp "1.x.x"
 
-he@1.1.0, he@1.1.x:
+he@1.1.0, he@1.1.x, he@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/he/-/he-1.1.0.tgz#29319d49beec13a9b1f3c4f9b2a6dde4859bb2a7"
+
+highlight.js@^9.7.0:
+  version "9.9.0"
+  resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-9.9.0.tgz#b9995dcfdc2773e307a34f0460d92b9a474782c0"
 
 hoek@0.9.x:
   version "0.9.1"
@@ -2892,6 +2892,14 @@ hosted-git-info@^2.1.4, hosted-git-info@^2.1.5:
 html-comment-regex@^1.1.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/html-comment-regex/-/html-comment-regex-1.1.1.tgz#668b93776eaae55ebde8f3ad464b307a4963625e"
+
+html-encoder-decoder@^1.3.2:
+  version "1.3.3"
+  resolved "https://registry.yarnpkg.com/html-encoder-decoder/-/html-encoder-decoder-1.3.3.tgz#9ee441541a76576bc4d1a305738656227e28a092"
+  dependencies:
+    he "^1.1.0"
+    iterate-object "^1.3.2"
+    regex-escape "^3.4.2"
 
 html-encoding-sniffer@^1.0.1:
   version "1.0.1"
@@ -2988,14 +2996,6 @@ https-proxy-agent@^1.0.0:
     agent-base "2"
     debug "2"
     extend "3"
-
-husky@^0.12.0:
-  version "0.12.0"
-  resolved "https://registry.yarnpkg.com/husky/-/husky-0.12.0.tgz#3a44922fce8071803242c3c7522a6582c50525dc"
-  dependencies:
-    find-parent-dir "^0.3.0"
-    is-ci "^1.0.9"
-    normalize-path "^1.0.0"
 
 iconv-lite@0.4.13:
   version "0.4.13"
@@ -3351,6 +3351,10 @@ istanbul-reports@^1.0.0:
   resolved "https://registry.yarnpkg.com/istanbul-reports/-/istanbul-reports-1.0.0.tgz#24b4eb2b1d29d50f103b369bd422f6e640aa0777"
   dependencies:
     handlebars "^4.0.3"
+
+iterate-object@^1.3.2:
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/iterate-object/-/iterate-object-1.3.2.tgz#24ec15affa5d0039e8839695a21c2cae1f45b66b"
 
 jest-changed-files@^17.0.2:
   version "17.0.2"
@@ -4267,10 +4271,6 @@ normalize-package-data@^2.3.2, normalize-package-data@^2.3.4, "normalize-package
     is-builtin-module "^1.0.0"
     semver "2 || 3 || 4 || 5"
     validate-npm-package-license "^3.0.1"
-
-normalize-path@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/normalize-path/-/normalize-path-1.0.0.tgz#32d0e472f91ff345701c15a8311018d3b0a90379"
 
 normalize-path@^2.0.1:
   version "2.0.1"
@@ -5270,6 +5270,10 @@ regex-cache@^0.4.2:
     is-equal-shallow "^0.1.3"
     is-primitive "^2.0.0"
 
+regex-escape@^3.4.2:
+  version "3.4.4"
+  resolved "https://registry.yarnpkg.com/regex-escape/-/regex-escape-3.4.4.tgz#977da45db6fd1fb395fdec2361d7ef679ca25452"
+
 regexpu-core@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/regexpu-core/-/regexpu-core-1.0.0.tgz#86a763f58ee4d7c2f6b102e4764050de7ed90c6b"
@@ -5338,7 +5342,7 @@ request-promise@^4.1.1:
     request-promise-core "1.1.1"
     stealthy-require "^1.0.0"
 
-request@2, request@^2.55.0, request@^2.61.0, request@^2.74.0, request@^2.78.0, request@^2.79.0:
+request@2, request@2.79.0, request@^2.55.0, request@^2.61.0, request@^2.74.0, request@^2.78.0, request@^2.79.0:
   version "2.79.0"
   resolved "https://registry.yarnpkg.com/request/-/request-2.79.0.tgz#4dfe5bf6be8b8cdc37fcf93e04b65577722710de"
   dependencies:
@@ -5716,7 +5720,15 @@ shellwords@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/shellwords/-/shellwords-0.1.0.tgz#66afd47b6a12932d9071cbfd98a52e785cd0ba14"
 
-showdown@1.5.5:
+showdown-highlight@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/showdown-highlight/-/showdown-highlight-1.0.0.tgz#6105075b873359adfc163add447afffb7db46a03"
+  dependencies:
+    highlight.js "^9.7.0"
+    html-encoder-decoder "^1.3.2"
+    showdown "^1.4.3"
+
+showdown@1.5.5, showdown@^1.4.3:
   version "1.5.5"
   resolved "https://registry.yarnpkg.com/showdown/-/showdown-1.5.5.tgz#482a7033d1d849a83e477739604fc30576faeb9d"
   dependencies:
@@ -6060,7 +6072,7 @@ svgo@^0.7.0:
     sax "~1.2.1"
     whet.extend "~0.9.9"
 
-swanky-theme@^3.3.0:
+swanky-theme@3.3.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/swanky-theme/-/swanky-theme-3.3.0.tgz#ce9a5f07504ba4168489ddeadd7067e83855d460"
   dependencies:
