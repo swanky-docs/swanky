@@ -148,6 +148,10 @@ module.exports = (CONFIG, SWANKY_CONFIG) => {
       htmlConfig.chunks.push('docs');
     }
 
+    if (WEBPACK_CONFIG.entry.snippets) {
+      htmlConfig.chunks.push('snippets');
+    }
+
     // Create dynamic entry points for page specific scripts
     if (page.bootstrap && page.bootstrap.length > 0) {
       WEBPACK_CONFIG.entry[page.key] = page.bootstrap;
