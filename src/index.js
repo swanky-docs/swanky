@@ -5,10 +5,17 @@ const serve = require('./config/serve/serve');
 const createConfig = require('./utils/create-config');
 
 module.exports = {
-  devServer: (swankyConfigFilePath, webpackExtendConfig) => {
-    return serve(createConfig(swankyConfigFilePath), webpackExtendConfig);
+  devServer: (options) => {
+    const swankyConfigFilePath = options && options.configPath ? options.configPath : '';
+    const webpackExtendConfig = options && options.webpackConfig ? options.webpackConfig : {};
+    const isDebugMode = options && options.debug ? options.debug : false;
+
+    return serve(createConfig(swankyConfigFilePath), webpackExtendConfig, isDebugMode);
   },
-  build: (swankyConfigFilePath, webpackExtendConfig) => {
+  build: (options) => {
+    const swankyConfigFilePath = options && options.configPath ? options.configPath : '';
+    const webpackExtendConfig = options && options.webpackConfig ? options.webpackConfig : {};
+
     return build(createConfig(swankyConfigFilePath), webpackExtendConfig);
   }
 };

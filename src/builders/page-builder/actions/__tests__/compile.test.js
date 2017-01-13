@@ -1,7 +1,7 @@
 const compile = require('./../compile');
 const path = require('path');
 
-describe('getList', () => {
+describe('compile', () => {
   it('should exist', () => {
     expect(compile).toBeDefined();
   });
@@ -21,7 +21,13 @@ describe('getList', () => {
       contentSrc: [path.join(__dirname, './../__mocks__/__fixtures__/docs/content/foundation.md')],
       layoutSrc: path.join(__dirname, './../__mocks__/__fixtures__/docs/themes/test-theme/templates/layouts/default.html'),
       meta: {
-        cssMap: {}
+        cssMap: {},
+        navigation: [
+          {
+            key: 'parentKey',
+            children: []
+          }
+        ]
       }
     };
 

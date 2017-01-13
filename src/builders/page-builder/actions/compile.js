@@ -3,6 +3,8 @@
 const Promise = require('bluebird');
 const nunjucks = require('nunjucks');
 const DEFAULTS = require('./../../../constants');
+const getNextPage = require('./get-links').getNextPage;
+const getPreviousPage = require('./get-links').getPreviousPage;
 
 // Configure nunjucks loader
 // https://mozilla.github.io/nunjucks/api.html#configure
@@ -10,7 +12,6 @@ nunjucks.configure('/', DEFAULTS.NUNJUCKS_CONFIG);
 
 function compile(page) {
   return new Promise((resolve) => {
-
     const anchors = page.compiledContent.filter((item) => !!item.title);
 
     // Compile main page
@@ -23,7 +24,9 @@ function compile(page) {
       contentSrc: page.content,
       contents: page.compiledContent,
       meta: page.meta,
-      styles: page.meta.cssMap
+      styles: page.meta.cssMap,
+      nextPage: getNextPage(page),
+      previousPage: getPreviousPage(page)
     };
 
     nunjucks.render(page.layoutSrc, data, (err, result) => {
