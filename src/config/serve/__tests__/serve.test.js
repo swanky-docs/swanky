@@ -88,4 +88,37 @@ describe('Serve config', () => {
     serve(mockConfig, { some: 'extra-prop' });
     expect(_.merge).toHaveBeenCalled();
   });
+
+  it('should handle debug mode', () => {
+    const expectedBrowserSyncConfig = {
+      files: [
+        'docs/**/*.css',
+        'docs/**/*.js',
+        'docs/**/*.styl',
+        'docs/**/*.less',
+        'docs/**/*.scss',
+        'docs/**/*.ejs',
+        'docs/**/*.html',
+        'docs/**/*.md'
+      ],
+      logLevel: 'info',
+      logPrefix: 'Swanky Server',
+      notify: false,
+      open: false,
+      server: {
+        baseDir: '/',
+        middleware: [
+          {
+
+          },
+          {
+
+          }
+        ]
+      }
+    };
+
+    serve(mockConfig, { some: 'extra-prop' }, true);
+    expect(browserSync).toHaveBeenLastCalledWith(expectedBrowserSyncConfig);
+  });
 });

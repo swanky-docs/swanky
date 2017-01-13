@@ -1,3 +1,5 @@
+'use strict';
+
 const getLinks = require('./../get-links');
 
 describe('getLinks', () => {

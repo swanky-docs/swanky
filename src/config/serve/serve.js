@@ -13,9 +13,10 @@ const DEFAULTS = require('../../constants.js');
  * Create dev config for webpackConfig
  * @param  {Object} swankyConfig - The swanky.config.yml file configuration
  * @param  {Object} webpackExtendConfig - User extended webpack configuration
+ * @param {Boolean} isDebugMode - display debugging logs
  * @return {Object} result - browserSync config Object
  */
-module.exports = (swankyConfig, webpackExtendConfig) => {
+module.exports = (swankyConfig, webpackExtendConfig, isDebugMode) => {
 
   if (process.env.NODE_ENV !== 'test') {
     greet();
@@ -29,25 +30,34 @@ module.exports = (swankyConfig, webpackExtendConfig) => {
   }
 
   const bundler = webpack(webpackConfig);
+  let webpackDevMiddlewareConfig = {};
+
+  if (isDebugMode) {
+    webpackDevMiddlewareConfig = {
+      publicPath: webpackConfig.output.publicPath,
+      stats: {
+        colors: true
+      }
+    };
+  } else {
+    webpackDevMiddlewareConfig = {
+      publicPath: webpackConfig.output.publicPath,
+      quiet: true,
+      noInfo: false,
+      stats: 'errors-only'
+    };
+  }
 
   let result = browserSync({
-    open: true,
+    open: !isDebugMode, // do not open if in debug mode
     logLevel: 'info',
     logPrefix: 'Swanky Server',
     notify: false,
     server: {
       baseDir: '/',
       middleware: [
-        webpackDevMiddleware(bundler, {
-          publicPath: webpackConfig.output.publicPath,
-          stats: {
-            colors: true
-          }
-          // quiet: true,
-          // noInfo: false,
-          // stats: 'errors-only'
-        }),
-        webpackHotMiddleware(bundler, {log: false})
+        webpackDevMiddleware(bundler, webpackDevMiddlewareConfig),
+        webpackHotMiddleware(bundler, { log: false })
       ]
     },
     // Files to watch
