@@ -87,7 +87,6 @@ module.exports = (CONFIG, SWANKY_CONFIG) => {
       ]
     },
     plugins: [
-      new webpack.NoErrorsPlugin(),
       new ExtractTextPlugin({filename: '[name].[hash:8].css', disable: false, allChunks: true, publicPath: BASE_PATH}),
       new webpack.LoaderOptionsPlugin({
         options: {
