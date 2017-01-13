@@ -6072,9 +6072,9 @@ svgo@^0.7.0:
     sax "~1.2.1"
     whet.extend "~0.9.9"
 
-swanky-theme@3.4.3:
-  version "3.4.3"
-  resolved "https://registry.yarnpkg.com/swanky-theme/-/swanky-theme-3.4.3.tgz#f83ba6cf624dddd9285d2099e0b4a0381ff1781c"
+swanky-theme@3.5.0:
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/swanky-theme/-/swanky-theme-3.5.0.tgz#06b8a3d16286ea3386e6eafb0a504d79506456b8"
   dependencies:
     basscss "8.0.3"
     highlightjs "9.8.0"

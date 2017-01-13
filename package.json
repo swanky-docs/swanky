@@ -77,7 +77,7 @@
     "style-loader": "0.13.1",
     "stylus": "0.54.5",
     "stylus-loader": "2.4.0",
-    "swanky-theme": "3.4.3",
+    "swanky-theme": "3.5.0",
     "url-loader": "0.5.7",
     "webpack": "^2.2.0-rc",
     "webpack-dev-middleware": "1.9.0",
