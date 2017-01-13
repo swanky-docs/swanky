@@ -2870,6 +2870,10 @@ highlight.js@^9.7.0:
   version "9.9.0"
   resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-9.9.0.tgz#b9995dcfdc2773e307a34f0460d92b9a474782c0"
 
+highlightjs@9.8.0:
+  version "9.8.0"
+  resolved "https://registry.yarnpkg.com/highlightjs/-/highlightjs-9.8.0.tgz#981418614f45b04fa01623850990e016f950eb54"
+
 hoek@0.9.x:
   version "0.9.1"
   resolved "https://registry.yarnpkg.com/hoek/-/hoek-0.9.1.tgz#3d322462badf07716ea7eb85baf88079cddce505"
@@ -5012,10 +5016,6 @@ pretty-format@^18.1.0:
   dependencies:
     ansi-styles "^2.2.1"
 
-prismjs@1.5.1:
-  version "1.5.1"
-  resolved "https://registry.yarnpkg.com/prismjs/-/prismjs-1.5.1.tgz#224990100ff6c2a7588d086be1a5ac62e83690f7"
-
 private@^0.1.6, private@~0.1.5:
   version "0.1.6"
   resolved "https://registry.yarnpkg.com/private/-/private-0.1.6.tgz#55c6a976d0f9bafb9924851350fe47b9b5fbb7c1"
@@ -5720,7 +5720,7 @@ shellwords@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/shellwords/-/shellwords-0.1.0.tgz#66afd47b6a12932d9071cbfd98a52e785cd0ba14"
 
-showdown-highlight@^1.0.0:
+showdown-highlight@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/showdown-highlight/-/showdown-highlight-1.0.0.tgz#6105075b873359adfc163add447afffb7db46a03"
   dependencies:
@@ -6072,13 +6072,13 @@ svgo@^0.7.0:
     sax "~1.2.1"
     whet.extend "~0.9.9"
 
-swanky-theme@3.3.0:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/swanky-theme/-/swanky-theme-3.3.0.tgz#ce9a5f07504ba4168489ddeadd7067e83855d460"
+swanky-theme@3.4.2:
+  version "3.4.2"
+  resolved "https://registry.yarnpkg.com/swanky-theme/-/swanky-theme-3.4.2.tgz#1d272b9692781bc2d56b347826f669b322d6e8a2"
   dependencies:
     basscss "8.0.3"
+    highlightjs "9.8.0"
     postcss "5.2.5"
-    prismjs "1.5.1"
 
 "symbol-tree@>= 3.1.0 < 4.0.0":
   version "3.2.0"
