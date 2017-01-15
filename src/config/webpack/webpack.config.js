@@ -155,7 +155,7 @@ module.exports = (CONFIG, SWANKY_CONFIG) => {
     // Create dynamic entry points for page specific scripts
     if (page.bootstrap && page.bootstrap.length > 0) {
       WEBPACK_CONFIG.entry[page.key] = page.bootstrap;
-      htmlConfig.chunks.push(WEBPACK_CONFIG.entry[page.key]);
+      htmlConfig.chunks.push(page.key);
     }
 
     // Create an instance of the HTML Webpack Plugin for each page
