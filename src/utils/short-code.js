@@ -1,7 +1,8 @@
 'use strict';
 
-const snippetTypeRegex = /\[(code|render)\s([\w_\/-]+)(\s.*)?]/gi;
-const snippetGroupTypeRegex = /\[(code|render)-group](?:\s*)(\[[\s\S]*?])(?:\s*)\[\/\1-group]/gi;
+const codeBlockRegex = /(`{3}\s*)(\w+)?/gim;
+const snippetTypeRegex = /(?:(?:(?:`{3}\s*)(?:\w+)?(?:\s*)?)?)\[(code|render)\s([\w_\/-]+)(\s.*)?]/gim;
+const snippetGroupTypeRegex = /(?:(?:(?:`{3}\s*)(?:\w+)?(?:\s*)?)?)\[(code|render)-group](?:\s*)(\[[\s\S]*?])(?:\s*)\[\/\1-group]/gim;
 const snippetRegex = /\[([\w_\/-]+)\s*([\s\S]*?)]/gi;
 const paramRegex = /([\w_-]+="[^"]+")/gi;
 
@@ -29,8 +30,12 @@ let shortCode = (testMatches) => {
       type: 'lang',
       filter: (text/*, converter, options*/) => {
         return text.replace(snippetTypeRegex, (match, type, template, params) => {
-          matches.push(`{$ ${type}('${template}', ${JSON.stringify(getParams(params))}) $}`);
-          return PLACEHOLDER + (matches.length - 1) + '!';
+          if (!codeBlockRegex.test(match)) { // Don't match code blocks containing snippet examples
+            matches.push(`{$ ${type}('${template}', ${JSON.stringify(getParams(params))}) $}`);
+            return PLACEHOLDER + (matches.length - 1) + '!';
+          }
+          // Do nothing just return the snippet unaltered
+          return match;
         });
       }
     },
@@ -40,14 +45,19 @@ let shortCode = (testMatches) => {
         return text.replace(snippetGroupTypeRegex, (match, type, snippets) => {
           let snippetsArr = [];
 
-          snippets.replace(snippetRegex, (match, template, params) => {
-            snippetsArr.push({
-              template: template,
-              data: getParams(params)
+          if (!codeBlockRegex.test(match)) { // Don't match code blocks containing snippet examples
+            snippets.replace(snippetRegex, (match, template, params) => {
+              snippetsArr.push({
+                template: template,
+                data: getParams(params)
+              });
             });
-          });
-          matches.push(`{$ ${type}(${JSON.stringify(snippetsArr)}) $}`);
-          return PLACEHOLDER + (matches.length - 1) + '!';
+            matches.push(`{$ ${type}(${JSON.stringify(snippetsArr)}) $}`);
+            return PLACEHOLDER + (matches.length - 1) + '!';
+          }
+
+          // Do nothing just return the snippet unaltered
+          return match;
         });
       }
     },

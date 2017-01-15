@@ -13,11 +13,24 @@ describe('shortCode', () => {
     expect(renderFn('[code hello]')).toEqual('sWaNkY-md-0!');
   });
 
+  it('should not process snippets inside of markdown code blocks', () => {
+    const renderFn = shortCode()[0].filter;
+
+    expect(renderFn('```markdown[code hello]')).toEqual('```markdown[code hello]');
+  });
+
   it('should process a snippet group', () => {
     const renderFn = shortCode()[1].filter;
 
     expect(renderFn('[code-group][code foo="bar"][/code-group]')).toEqual('sWaNkY-md-0!');
   });
+
+  it('should not process snippets groups inside of markdown code blocks', () => {
+    const renderFn = shortCode()[1].filter;
+
+    expect(renderFn('```markdown[code-group][code foo="bar"][/code-group]')).toEqual('```markdown[code-group][code foo="bar"][/code-group]');
+  });
+
 
   it('should process a placeholder', () => {
     const matches = ['Hello Worlds!'];

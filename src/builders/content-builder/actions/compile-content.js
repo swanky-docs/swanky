@@ -10,6 +10,7 @@ const classy = require('./../../../utils/classy');
 const showdownHighlight = require('showdown-highlight');
 const DEFAULTS = require('./../../../constants.js');
 
+// Create github style header (spaces are replaced with dashes)
 showdown.setFlavor('github');
 
 // Configure showdown markdown extensions
@@ -17,9 +18,6 @@ const markdown = new showdown.Converter({
   extensions: [shortCode, wrap, showdownHighlight, classy],
   tables: true
 });
-
-// Create github style header (spaces are replaced with dashes)
-markdown.setOption('ghCompatibleHeaderId', true);
 
 // Configure nunjucks loader
 // https://mozilla.github.io/nunjucks/api.html#configure
