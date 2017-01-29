@@ -1,6 +1,7 @@
 'use strict';
 
 const fs = require('fs-extra');
+const walkSync = require('klaw-sync');
 const path = require('path');
 const nunjucks = require('nunjucks');
 const DEFAULTS = require('./../../../constants.js');
@@ -17,21 +18,21 @@ nunjucks.configure('/', DEFAULTS.NUNJUCKS_CONFIG);
  * @returns {String} - the rendered template
  */
 function compileSnippet(template, templateData, siteMeta) {
-  const filePaths = fs.existsSync(siteMeta.snippets) ? fs.walkSync(siteMeta.snippets) : [];
+  const filePaths = fs.existsSync(siteMeta.snippets) ? walkSync(siteMeta.snippets) : [];
   let filePathIndex = -1;
 
   filePaths.forEach((val, index) => {
     const templatePath = path.join(template, 'template.html');
     const pattern = new RegExp('[\/]' + templatePath + '$');
 
-    if (val.match(pattern)) {
+    if (val.path.match(pattern)) {
       filePathIndex = index;
     }
   });
 
   if (filePathIndex > -1) {
     // Compile template if it exists
-    return nunjucks.render(filePaths[filePathIndex], {
+    return nunjucks.render(filePaths[filePathIndex].path, {
       styles: siteMeta.cssMap,
       data: templateData
     });
