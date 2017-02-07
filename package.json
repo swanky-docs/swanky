@@ -24,6 +24,7 @@
     "test:unit": "jest --watch --coverage",
     "test:unit:debug": "node --debug-brk ./node_modules/.bin/jest -i",
     "test:unit:coverage": "NODE_ENV=test jest --coverage --silent",
+    "win:test:unit:coverage": "SET NODE_ENV=test jest --coverage --silent",
     "verify": "npm run verify:js --silent",
     "verify:js": "eslint -c config/verify/.eslintrc \"src/**/*.js\" \"config/**/*.js\" && echo verify:js success",
     "verify:js:watch": "chokidar 'src/**/*.js' 'config/**/*.js' -c 'npm run verify:js' --initial --silent",
