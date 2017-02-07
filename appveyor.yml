@@ -37,4 +37,4 @@ install:
 test_script:
   - node --version
   - npm --version
-  - npm run report-coverage
+  - npm run pre-release
