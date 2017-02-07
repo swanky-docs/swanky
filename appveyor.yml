@@ -37,4 +37,4 @@ install:
 test_script:
   - node --version
   - npm --version
-  - npm run win:test:unit:coverage
+  - npm run report-coverage
