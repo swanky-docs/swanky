@@ -6,7 +6,8 @@ const loaderUtils = require('loader-utils');
 module.exports = function() {
   this.cacheable();
 
-  const query = loaderUtils.parseQuery(this.query);
+  const query = loaderUtils.getOptions(this);
+
   const files = walkSync(query.src);
 
   const matches = files.filter((file) => {
