@@ -9,9 +9,10 @@ module.exports = function() {
   this.cacheable();
   const callback = this.async();
 
-  const swankyDocsLoaderConfig = loaderUtils.getLoaderConfig(this, 'swankyDocsLoader');
-  const swankyDocsConfig = loaderUtils.getLoaderConfig(this, 'swankyDocs');
-  const currentPage = _.find(swankyDocsConfig.sections, {'key': swankyDocsLoaderConfig.key});
+  const config = loaderUtils.getOptions(this);
+  // const swankyDocsLoaderConfig = loaderUtils.getLoaderConfig(this, 'swankyDocsLoader');
+  // const swankyDocsConfig = loaderUtils.getLoaderConfig(this, 'swankyDocs');
+  const currentPage = _.find(config.swankyDocsConfig.sections, {'key': config.swankyDocsLoaderConfig.key});
 
   // Add theme file dependencies
   currentPage.meta.fileDependencies.forEach((dep) => {

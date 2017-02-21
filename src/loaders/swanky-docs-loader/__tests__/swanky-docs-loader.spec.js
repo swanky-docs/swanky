@@ -26,8 +26,11 @@ jest.mock('loader-utils');
 
 let loaderUtils = require('loader-utils');
 
-loaderUtils.getLoaderConfig.mockImplementation(() => {
-  return {};
+loaderUtils.getOptions.mockImplementation(() => {
+  return {
+    swankyDocsConfig: {},
+    swankyDocsLoaderConfig: {}
+  };
 });
 
 jest.mock('lodash');
