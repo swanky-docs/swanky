@@ -39,7 +39,9 @@ module.exports = {
     },
     LANGUAGE: {
       JS: /\.js$/,
-      HTML: /\.html$/
+      HTML: /\.html$/,
+      HTML_TEMPLATE: /\.html$/
+
     },
     ASSETS: {
       FONTS: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
