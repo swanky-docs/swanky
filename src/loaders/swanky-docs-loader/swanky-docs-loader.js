@@ -1,7 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
-const loaderUtils = require('loader-utils');
+const querystring = require('querystring');
 const builders = require('./../../builders');
 
 module.exports = function() {
@@ -9,10 +9,11 @@ module.exports = function() {
   this.cacheable();
   const callback = this.async();
 
-  const config = loaderUtils.getOptions(this);
-  // const swankyDocsLoaderConfig = loaderUtils.getLoaderConfig(this, 'swankyDocsLoader');
-  // const swankyDocsConfig = loaderUtils.getLoaderConfig(this, 'swankyDocs');
-  const currentPage = _.find(config.swankyDocsConfig.sections, {'key': config.swankyDocsLoaderConfig.key});
+  const config = querystring.parse(this.query.replace(/^\?/, ''));
+
+  const options = JSON.parse(config).options;
+
+  const currentPage = _.find(options.swankyDocs.sections, {'key': options.key});
 
   // Add theme file dependencies
   currentPage.meta.fileDependencies.forEach((dep) => {
