@@ -2,7 +2,6 @@
 
 const path = require('path');
 const fs = require('fs');
-const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const getSectionsConfig = require('./../../utils/get-sections-config');

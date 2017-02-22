@@ -41,8 +41,6 @@ const _ = require('lodash');
 
 
 beforeEach(() => {
-  this.query = "somequerysting";
-
   _.find.mockImplementation(() => {
     return {
       meta: {
