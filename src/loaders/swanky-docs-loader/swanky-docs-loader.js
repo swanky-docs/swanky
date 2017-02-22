@@ -11,7 +11,7 @@ module.exports = function() {
 
   const config = querystring.parse(this.query.replace(/^\?/, ''));
 
-  const options = JSON.parse(config).options;
+  const options = JSON.parse(config.options);
 
   const currentPage = _.find(options.swankyDocs.sections, {'key': options.key});
 

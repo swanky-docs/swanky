@@ -27,13 +27,13 @@ jest.mock('querystring');
 let querystring = require('querystring');
 
 querystring.parse.mockImplementation(() => {
-  return JSON.stringify({
-    options: {
+  return {
+    options: JSON.stringify({
       key: 'foundation',
       swankyDocs: {},
       swankyDocsLoader: {}
-    }
-  });
+    })
+  };
 });
 
 jest.mock('lodash');
