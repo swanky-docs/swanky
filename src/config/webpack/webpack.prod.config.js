@@ -3,7 +3,6 @@
 const webpack = require('webpack');
 
 module.exports = {
-  debug: false,
   devtool: 'source-map',
   plugins: [
     new webpack.DefinePlugin({

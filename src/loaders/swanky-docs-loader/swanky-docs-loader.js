@@ -6,7 +6,6 @@ const builders = require('./../../builders');
 
 module.exports = function() {
 
-  this.cacheable();
   const callback = this.async();
 
   const config = querystring.parse(this.query.replace(/^\?/, ''));

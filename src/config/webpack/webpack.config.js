@@ -2,6 +2,7 @@
 
 const path = require('path');
 const fs = require('fs');
+const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const getSectionsConfig = require('./../../utils/get-sections-config');
@@ -26,42 +27,98 @@ module.exports = (CONFIG, SWANKY_CONFIG) => {
     resolve: {
       extensions: ['.js', '.json', '.styl', '.less', '.scss'],
       descriptionFiles: ['package.json'],
-      modules: [BASE_PATH, 'node_modules'],
+      modules: [BASE_PATH, 'node_modules', 'src/loaders'],
       mainFiles: ['index'],
       alias: {
         'assets': path.resolve(BASE_PATH, SWANKY_CONFIG.meta.src, 'assets')
       }
     },
+    resolveLoader: {
+      alias: {
+        'swanky-docs-loader': path.join(__dirname, './../../loaders/swanky-docs-loader')
+      }
+    },
+
     module: {
-      loaders: [
+      rules: [
         {
           test: DEFAULTS.REGEX.STYLES.CSS,
-          loader: ExtractTextPlugin.extract({fallbackLoader: 'style-loader', loader: 'css-loader'})
+          loader: ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            loader: 'css-loader'
+          })
         },
         {
           test: DEFAULTS.REGEX.STYLES.LESS,
-          loader: ExtractTextPlugin.extract({fallbackLoader: 'style-loader', loader: 'css-loader!less-loader'})
+          loader: ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            loader: [
+              {
+                loader: 'css-loader'
+              },
+              {
+                loader: 'less-loader'
+              }
+            ]
+          })
         },
         {
           test: DEFAULTS.REGEX.STYLES.SASS,
-          loader: ExtractTextPlugin.extract({fallbackLoader: 'style-loader', loader: 'css-loader!sass-loader'})
+          loader: ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            loader: [
+              {
+                loader: 'css-loader'
+              },
+              {
+                loader: 'sass-loader'
+              }
+            ]
+          })
         },
         {
           test: THEME_REGEX,
-          loader: ExtractTextPlugin.extract({fallbackLoader: 'style-loader', loader: `css-loader?modules&localIdentName=${SWANKY_CONFIG.meta.cssScopedName}!stylus-loader`})
+          loader: ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            loader: [
+              {
+                loader: 'css-loader',
+                query: {
+                  importLoaders: 1,
+                  modules: true,
+                  localIdentName: SWANKY_CONFIG.meta.cssScopedName,
+                }
+              },
+              {
+                loader: 'stylus-loader'
+              }
+            ]
+          })
         },
         {
           test: DEFAULTS.REGEX.STYLES.STYLUS,
           exclude: THEME_REGEX,
-          loader: ExtractTextPlugin.extract({fallbackLoader: 'style-loader', loader: 'css-loader!stylus-loader'})
+          loader: ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            loader: [
+              {
+                loader: 'css-loader'
+              },
+              {
+                loader: 'stylus-loader'
+              }
+            ]
+          })
         },
         {
           test: DEFAULTS.REGEX.LANGUAGE.JS,
-          loaders: 'babel-loader',
           exclude: /node_modules/,
-          query: {
-            presets: ['es2015']
-          }
+          loader: [{
+            loader: 'babel-loader',
+            query: {
+              presets: ['es2015']
+            }
+          }]
         },
         {
           test: DEFAULTS.REGEX.LANGUAGE.HTML,
@@ -69,24 +126,37 @@ module.exports = (CONFIG, SWANKY_CONFIG) => {
         },
         {
           test: DEFAULTS.REGEX.ASSETS.FONTS,
-          loader: 'url-loader',
-          query: {
-            limit: 10000,
-            name: 'assets/fonts/[name].[hash:7].[ext]'
-          }
+          loader: [
+            {
+              loader: 'url-loader',
+              query: {
+                limit: 10000,
+                name: 'assets/fonts/[name].[hash:7].[ext]'
+              }
+            }
+          ],
         },
         {
           test: DEFAULTS.REGEX.ASSETS.IMAGES,
-          loader: 'url-loader',
-          query: {
-            limit: 10000,
-            name: 'assets/img/[name].[hash:7].[ext]'
-          }
+          loader: [
+            {
+              loader: 'url-loader',
+              query: {
+                limit: 10000,
+                name: 'assets/img/[name].[hash:7].[ext]'
+              }
+            }
+          ]
         }
       ]
     },
     plugins: [
-      new ExtractTextPlugin({filename: '[name].[hash:8].css', disable: false, allChunks: true, publicPath: BASE_PATH})
+      new ExtractTextPlugin({filename: '[name].[hash:8].css', disable: false, allChunks: true, publicPath: BASE_PATH}),
+      new webpack.LoaderOptionsPlugin({
+        options: {
+          context: path.resolve(path.join(SWANKY_CONFIG.meta.theme, DEFAULTS.CSS_THEME_FOLDER))
+        }
+      })
     ]
   };
 
@@ -116,27 +186,18 @@ module.exports = (CONFIG, SWANKY_CONFIG) => {
   }
 
   SECTIONS_CONFIG.forEach((page, index) => {
-    // Encode JavaScript objects to be passed through query params
-    const swankyDocs = {
-      sections: SECTIONS_CONFIG
-    };
-
-    const swankyDocsLoader = {
-      layouts: SWANKY_CONFIG.meta.layouts,
-      partials: SWANKY_CONFIG.meta.partials
-    };
-
     const options = encodeURI(JSON.stringify({
       key: page.key,
-      swankyDocs: swankyDocs,
-      swankyDocsLoader: swankyDocsLoader
+      swankyDocs: {
+        sections: SECTIONS_CONFIG
+      }
     }));
 
     const htmlConfig = {
       key: page.key,
       chunks: ['theme'],
       filename: !index ? 'index.html' : page.url,
-      template: '!!' + 'html-loader!' + require.resolve('./../../loaders/swanky-docs-loader') + '?options=' + options + '!' + page.layoutSrc,
+      template: 'html-loader!swanky-docs-loader?options=' + options + '!' + page.layoutSrc,
       inject: true
     };
 
