@@ -22,15 +22,18 @@ builders.pageBuilder.build.mockImplementation(() => {
   return new Promise((resolve) => resolve());
 });
 
-jest.mock('loader-utils');
+jest.mock('querystring');
 
-let loaderUtils = require('loader-utils');
+let querystring = require('querystring');
 
-loaderUtils.getOptions.mockImplementation(() => {
-  return {
-    swankyDocsConfig: {},
-    swankyDocsLoaderConfig: {}
-  };
+querystring.parse.mockImplementation(() => {
+  return JSON.stringify({
+    options: {
+      key: 'foundation',
+      swankyDocs: {},
+      swankyDocsLoader: {}
+    }
+  });
 });
 
 jest.mock('lodash');
@@ -38,6 +41,8 @@ const _ = require('lodash');
 
 
 beforeEach(() => {
+  this.query = "somequerysting";
+
   _.find.mockImplementation(() => {
     return {
       meta: {
@@ -69,6 +74,7 @@ describe('swankyDocsLoader', () => {
 
     swankyDocsLoader.call({
       async: callback,
+      query: '?options = {}',
       cacheable: () => true,
       addDependency: (dep) => fileDependencies.push(dep)
     });
@@ -86,6 +92,7 @@ describe('swankyDocsLoader', () => {
 
     swankyDocsLoader.call({
       async: callback,
+      query: '?options = {}',
       cacheable: () => true,
       addDependency: (dep) => fileDependencies.push(dep)
     });

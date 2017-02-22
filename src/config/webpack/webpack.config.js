@@ -87,18 +87,7 @@ module.exports = (CONFIG, SWANKY_CONFIG) => {
       ]
     },
     plugins: [
-      new ExtractTextPlugin({filename: '[name].[hash:8].css', disable: false, allChunks: true, publicPath: BASE_PATH}),
-      new webpack.LoaderOptionsPlugin({
-        options: {
-          swankyDocs: {
-            sections: SECTIONS_CONFIG
-          },
-          swankyDocsLoader: {
-            layouts: SWANKY_CONFIG.meta.layouts,
-            partials: SWANKY_CONFIG.meta.partials
-          }
-        }
-      })
+      new ExtractTextPlugin({filename: '[name].[hash:8].css', disable: false, allChunks: true, publicPath: BASE_PATH})
     ]
   };
 
@@ -128,12 +117,27 @@ module.exports = (CONFIG, SWANKY_CONFIG) => {
   }
 
   SECTIONS_CONFIG.forEach((page, index) => {
+    // Encode JavaScript objects to be passed through query params
+    const swankyDocs = {
+      sections: SECTIONS_CONFIG
+    };
+
+    const swankyDocsLoader = {
+      layouts: SWANKY_CONFIG.meta.layouts,
+      partials: SWANKY_CONFIG.meta.partials
+    };
+
+    const options = encodeURI(JSON.stringify({
+      key: page.key,
+      swankyDocs: swankyDocs,
+      swankyDocsLoader: swankyDocsLoader
+    }));
 
     const htmlConfig = {
       key: page.key,
       chunks: ['theme'],
       filename: !index ? 'index.html' : page.url,
-      template: '!!' + 'html-loader!' + require.resolve('./../../loaders/swanky-docs-loader') + '?key=' + page.key + '!' + page.layoutSrc,
+      template: '!!' + 'html-loader!' + require.resolve('./../../loaders/swanky-docs-loader') + '?options=' + options + '!' + page.layoutSrc,
       inject: true
     };
 
