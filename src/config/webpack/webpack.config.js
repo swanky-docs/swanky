@@ -43,93 +43,79 @@ module.exports = (CONFIG, SWANKY_CONFIG) => {
       rules: [
         {
           test: DEFAULTS.REGEX.STYLES.CSS,
-          loader: ExtractTextPlugin.extract({
+          use: ExtractTextPlugin.extract({
             fallback: 'style-loader',
             loader: 'css-loader'
           })
         },
         {
           test: DEFAULTS.REGEX.STYLES.LESS,
-          loader: ExtractTextPlugin.extract({
+          use: ExtractTextPlugin.extract({
             fallback: 'style-loader',
             loader: [
-              {
-                loader: 'css-loader'
-              },
-              {
-                loader: 'less-loader'
-              }
+              'css-loader',
+              'less-loader'
             ]
           })
         },
         {
           test: DEFAULTS.REGEX.STYLES.SASS,
-          loader: ExtractTextPlugin.extract({
+          use: ExtractTextPlugin.extract({
             fallback: 'style-loader',
             loader: [
-              {
-                loader: 'css-loader'
-              },
-              {
-                loader: 'sass-loader'
-              }
+              'css-loader',
+              'sass-loader'
             ]
           })
         },
         {
           test: THEME_REGEX,
-          loader: ExtractTextPlugin.extract({
+          use: ExtractTextPlugin.extract({
             fallback: 'style-loader',
             loader: [
               {
                 loader: 'css-loader',
-                query: {
+                options: {
                   importLoaders: 1,
                   modules: true,
-                  localIdentName: SWANKY_CONFIG.meta.cssScopedName,
+                  localIdentName: SWANKY_CONFIG.meta.cssScopedName
                 }
               },
-              {
-                loader: 'stylus-loader'
-              }
+              'stylus-loader'
             ]
           })
         },
         {
           test: DEFAULTS.REGEX.STYLES.STYLUS,
           exclude: THEME_REGEX,
-          loader: ExtractTextPlugin.extract({
+          use: ExtractTextPlugin.extract({
             fallback: 'style-loader',
             loader: [
-              {
-                loader: 'css-loader'
-              },
-              {
-                loader: 'stylus-loader'
-              }
+              'css-loader',
+              'stylus-loader'
             ]
           })
         },
         {
           test: DEFAULTS.REGEX.LANGUAGE.JS,
           exclude: /node_modules/,
-          loader: [{
+          use: [{
             loader: 'babel-loader',
-            query: {
+            options: {
               presets: ['es2015']
             }
           }]
         },
         {
           test: DEFAULTS.REGEX.LANGUAGE.HTML,
-          loader: 'html-loader'
+          use: 'html-loader'
         },
         {
           test: DEFAULTS.REGEX.ASSETS.FONTS,
-          loader: [
+          use: [
             {
               loader: 'url-loader',
-              query: {
+              options: {
                 limit: 10000,
                 name: 'assets/fonts/[name].[hash:7].[ext]'
               }
@@ -138,10 +124,10 @@ module.exports = (CONFIG, SWANKY_CONFIG) => {
         },
         {
           test: DEFAULTS.REGEX.ASSETS.IMAGES,
-          loader: [
+          use: [
             {
               loader: 'url-loader',
-              query: {
+              options: {
                 limit: 10000,
                 name: 'assets/img/[name].[hash:7].[ext]'
               }
