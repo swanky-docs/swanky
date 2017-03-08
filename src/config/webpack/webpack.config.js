@@ -154,7 +154,10 @@ module.exports = (CONFIG, SWANKY_CONFIG) => {
       new ExtractTextPlugin({filename: '[name].[hash:8].css', disable: false, allChunks: true, publicPath: BASE_PATH}),
       new webpack.LoaderOptionsPlugin({
         options: {
-          context: path.resolve(path.join(SWANKY_CONFIG.meta.theme, DEFAULTS.CSS_THEME_FOLDER))
+          context: path.resolve(path.join(SWANKY_CONFIG.meta.theme, DEFAULTS.CSS_THEME_FOLDER)),
+          swankyDocs: {
+            sections: SECTIONS_CONFIG
+          }
         }
       })
     ]
@@ -186,18 +189,11 @@ module.exports = (CONFIG, SWANKY_CONFIG) => {
   }
 
   SECTIONS_CONFIG.forEach((page, index) => {
-    const options = encodeURI(JSON.stringify({
-      key: page.key,
-      swankyDocs: {
-        sections: SECTIONS_CONFIG
-      }
-    }));
-
     const htmlConfig = {
       key: page.key,
       chunks: ['theme'],
       filename: !index ? 'index.html' : page.url,
-      template: 'html-loader!swanky-docs-loader?options=' + options + '!' + page.layoutSrc,
+      template: 'html-loader!swanky-docs-loader?key=' + page.key + '!' + page.layoutSrc,
       inject: true
     };
 

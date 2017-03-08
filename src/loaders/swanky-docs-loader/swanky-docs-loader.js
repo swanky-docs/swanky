@@ -1,18 +1,16 @@
 'use strict';
 
 const _ = require('lodash');
-const querystring = require('querystring');
+const queryString = require('querystring');
 const builders = require('./../../builders');
 
 module.exports = function() {
 
   const callback = this.async();
 
-  const config = querystring.parse(this.query.replace(/^\?/, ''));
+  const query = queryString.parse(this.query.replace(/^\?/, ''));
 
-  const options = JSON.parse(config.options);
-
-  const currentPage = _.find(options.swankyDocs.sections, {'key': options.key});
+  const currentPage = _.find(this.options.swankyDocs.sections, {'key': query.key});
 
   // Add theme file dependencies
   currentPage.meta.fileDependencies.forEach((dep) => {
