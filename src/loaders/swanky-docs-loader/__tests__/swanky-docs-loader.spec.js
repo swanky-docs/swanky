@@ -72,7 +72,10 @@ describe('swankyDocsLoader', () => {
 
     swankyDocsLoader.call({
       async: callback,
-      query: '?options = {}',
+      options: {
+        swankyDocs: {}
+      },
+      query: '?key = {}',
       cacheable: () => true,
       addDependency: (dep) => fileDependencies.push(dep)
     });
@@ -90,7 +93,10 @@ describe('swankyDocsLoader', () => {
 
     swankyDocsLoader.call({
       async: callback,
-      query: '?options = {}',
+      query: '?key = {}',
+      options: {
+        swankyDocs: {}
+      },
       cacheable: () => true,
       addDependency: (dep) => fileDependencies.push(dep)
     });
