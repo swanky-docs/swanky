@@ -43,16 +43,16 @@ module.exports = (CONFIG, SWANKY_CONFIG) => {
       rules: [
         {
           test: DEFAULTS.REGEX.STYLES.CSS,
-          loader: ExtractTextPlugin.extract({
+          use: ExtractTextPlugin.extract({
             fallback: 'style-loader',
-            loader: 'css-loader'
+            use: 'css-loader'
           })
         },
         {
           test: DEFAULTS.REGEX.STYLES.LESS,
-          loader: ExtractTextPlugin.extract({
+          use: ExtractTextPlugin.extract({
             fallback: 'style-loader',
-            loader: [
+            use: [
               {
                 loader: 'css-loader'
               },
@@ -64,9 +64,9 @@ module.exports = (CONFIG, SWANKY_CONFIG) => {
         },
         {
           test: DEFAULTS.REGEX.STYLES.SASS,
-          loader: ExtractTextPlugin.extract({
+          use: ExtractTextPlugin.extract({
             fallback: 'style-loader',
-            loader: [
+            use: [
               {
                 loader: 'css-loader'
               },
@@ -78,9 +78,9 @@ module.exports = (CONFIG, SWANKY_CONFIG) => {
         },
         {
           test: THEME_REGEX,
-          loader: ExtractTextPlugin.extract({
+          use: ExtractTextPlugin.extract({
             fallback: 'style-loader',
-            loader: [
+            use: [
               {
                 loader: 'css-loader',
                 query: {
@@ -98,9 +98,9 @@ module.exports = (CONFIG, SWANKY_CONFIG) => {
         {
           test: DEFAULTS.REGEX.STYLES.STYLUS,
           exclude: THEME_REGEX,
-          loader: ExtractTextPlugin.extract({
+          use: ExtractTextPlugin.extract({
             fallback: 'style-loader',
-            loader: [
+            use: [
               {
                 loader: 'css-loader'
               },
@@ -113,7 +113,7 @@ module.exports = (CONFIG, SWANKY_CONFIG) => {
         {
           test: DEFAULTS.REGEX.LANGUAGE.JS,
           exclude: /node_modules/,
-          loader: [{
+          use: [{
             loader: 'babel-loader',
             query: {
               presets: ['es2015']
@@ -122,11 +122,11 @@ module.exports = (CONFIG, SWANKY_CONFIG) => {
         },
         {
           test: DEFAULTS.REGEX.LANGUAGE.HTML,
-          loader: 'html-loader'
+          use: 'html-loader'
         },
         {
           test: DEFAULTS.REGEX.ASSETS.FONTS,
-          loader: [
+          use: [
             {
               loader: 'url-loader',
               query: {
@@ -138,7 +138,7 @@ module.exports = (CONFIG, SWANKY_CONFIG) => {
         },
         {
           test: DEFAULTS.REGEX.ASSETS.IMAGES,
-          loader: [
+          use: [
             {
               loader: 'url-loader',
               query: {
