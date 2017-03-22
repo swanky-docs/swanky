@@ -38,10 +38,9 @@ module.exports = {
       SASS: /\.scss$/
     },
     LANGUAGE: {
-      JS: /\.js$/,
+      JS: /\.jsx?$/,
       HTML: /\.html$/,
       HTML_TEMPLATE: /\.html$/
-
     },
     ASSETS: {
       FONTS: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,

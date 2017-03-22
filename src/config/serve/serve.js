@@ -64,6 +64,7 @@ module.exports = (swankyConfig, webpackExtendConfig, isDebugMode) => {
     files: [
       path.join(swankyConfig.meta.src, '/**/*.css'),
       path.join(swankyConfig.meta.src, '/**/*.js'),
+      path.join(swankyConfig.meta.src, '/**/*.jsx'),
       path.join(swankyConfig.meta.src, '/**/*.styl'),
       path.join(swankyConfig.meta.src, '/**/*.less'),
       path.join(swankyConfig.meta.src, '/**/*.scss'),
