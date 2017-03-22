@@ -2,13 +2,17 @@
   "name": "swanky",
   "description": "A simple, flexible and powerful tool for creating beautiful documentation.",
   "license": "MIT",
-  "author": "Rod Leviton",
+  "author": "Rod Leviton <rod@rodleviton.com>",
   "main": "src/index.js",
   "version": "0.0.0-development",
   "repository": {
     "url": "https://github.com/swanky-docs/swanky.git",
     "type": "git"
   },
+  "contributors": [
+    "Rod Leviton <rod@rodleviton.com>",
+    "Brett Uglow <u_glow@hotmail.com>"
+  ],
   "scripts": {
     "pre-release": "npm-run-all verify test:unit:coverage",
     "commit": "git-cz",
@@ -43,6 +47,7 @@
     "babel-core": "6.23.1",
     "babel-loader": "6.4.0",
     "babel-preset-es2015": "6.22.0",
+    "babel-preset-react": "6.23.0",
     "bluebird": "3.5.0",
     "browser-sync": "2.18.8",
     "chalk": "1.1.3",

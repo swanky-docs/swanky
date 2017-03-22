@@ -94,6 +94,7 @@ describe('Serve config', () => {
       files: [
         'docs/**/*.css',
         'docs/**/*.js',
+        'docs/**/*.jsx',
         'docs/**/*.styl',
         'docs/**/*.less',
         'docs/**/*.scss',
