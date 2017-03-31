@@ -155,6 +155,13 @@ module.exports = (CONFIG, SWANKY_CONFIG) => {
       new webpack.LoaderOptionsPlugin({
         options: {
           context: path.resolve(path.join(SWANKY_CONFIG.meta.theme, DEFAULTS.CSS_THEME_FOLDER)),
+          htmlLoader: {
+            minimize: true,
+            removeAttributeQuotes: false,
+            caseSensitive: true,
+            customAttrSurround: [ [/#/, /(?:)/], [/\*/, /(?:)/], [/\[?\(?/, /(?:)/] ],
+            customAttrAssign: [ /\)?\]?=/ ]
+          },
           swankyDocs: {
             sections: SECTIONS_CONFIG
           }
