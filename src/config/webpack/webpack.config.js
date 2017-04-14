@@ -116,7 +116,7 @@ module.exports = (CONFIG, SWANKY_CONFIG) => {
           use: [{
             loader: 'babel-loader',
             query: {
-              presets: ['es2015', 'react']
+              presets: ['babel-preset-es2015'].map(require.resolve)
             }
           }]
         },
