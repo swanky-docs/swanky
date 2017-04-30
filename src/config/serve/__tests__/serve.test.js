@@ -15,12 +15,6 @@ const mockConfig = {
   sections: []
 };
 
-jest.mock('webpack-hot-middleware', () => {
-  return () => {
-    return {};
-  };
-});
-
 jest.mock('webpack-dev-middleware', () => {
   return () => {
     return {};
@@ -103,9 +97,6 @@ describe('Serve config', () => {
       server: {
         baseDir: '/',
         middleware: [
-          {
-
-          },
           {
 
           }

@@ -5,7 +5,6 @@ const path = require('path');
 const webpack = require('webpack');
 const greet = require('./actions/greet');
 const webpackDevMiddleware = require('webpack-dev-middleware');
-const webpackHotMiddleware = require('webpack-hot-middleware');
 const DEFAULTS = require('../../constants.js');
 
 /**
@@ -56,8 +55,7 @@ module.exports = (swankyConfig, loaders, isDebugMode) => {
     server: {
       baseDir: '/',
       middleware: [
-        webpackDevMiddleware(bundler, webpackDevMiddlewareConfig),
-        webpackHotMiddleware(bundler, { log: false })
+        webpackDevMiddleware(bundler, webpackDevMiddlewareConfig)
       ]
     },
     // Files to watch

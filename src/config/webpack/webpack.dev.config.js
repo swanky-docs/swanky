@@ -8,7 +8,6 @@ module.exports = {
     new webpack.DefinePlugin({
       __DEV__: true,
       __PROD__: false
-    }),
-    new webpack.HotModuleReplacementPlugin()
+    })
   ]
 };

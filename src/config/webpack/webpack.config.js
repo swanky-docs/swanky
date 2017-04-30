@@ -170,19 +170,10 @@ module.exports = (CONFIG, SWANKY_CONFIG) => {
     ]
   };
 
-  // HMR
   const docsScriptPath = path.join(SWANKY_CONFIG.meta.src, '/docs.js');
 
   if (fs.existsSync(docsScriptPath)) {
-    if (!SWANKY_CONFIG.meta.production) {
-      WEBPACK_CONFIG.entry.docs = [
-        require.resolve('webpack/hot/dev-server'),
-        require.resolve('webpack-hot-middleware/client'),
-        docsScriptPath
-      ];
-    } else {
-      WEBPACK_CONFIG.entry.docs = [docsScriptPath];
-    }
+    WEBPACK_CONFIG.entry.docs = [docsScriptPath];
   }
 
   // Snippets
