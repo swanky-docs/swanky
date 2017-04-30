@@ -83,12 +83,6 @@ describe('Serve config', () => {
     expect(browserSync).toHaveBeenCalled();
   });
 
-  it('should merge extended config', () => {
-    process.env.NODE_ENV = 'test';
-    serve(mockConfig, { some: 'extra-prop' });
-    expect(_.merge).toHaveBeenCalled();
-  });
-
   it('should handle debug mode', () => {
     const expectedBrowserSyncConfig = {
       files: [
