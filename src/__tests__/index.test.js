@@ -17,13 +17,13 @@ describe('index', () => {
 
 
     it('should handle debug mode', () => {
-      index.devServer({ debug: true });
-      expect(serve).toHaveBeenLastCalledWith({}, {}, true);
+      index.devServer({ debug: true, loaders: [{}]});
+      expect(serve).toHaveBeenLastCalledWith({}, [{}], true);
     });
 
     it('should handle extended config options', () => {
-      index.devServer({ debug: true, configPath: '/some/path/to/config', webpackConfig: { something: 'extra' } });
-      expect(serve).toHaveBeenLastCalledWith({}, { something: 'extra' }, true);
+      index.devServer({ debug: true, configPath: '/some/path/to/config', loaders: [{}] });
+      expect(serve).toHaveBeenLastCalledWith({}, [{}], true);
     });
 
     it('should return the devServer configuration object', () => {
@@ -37,8 +37,8 @@ describe('index', () => {
     });
 
     it('should handle extended config options', () => {
-      index.build({configPath: '/some/path/to/config', webpackConfig: { something: 'extra' } });
-      expect(build).toHaveBeenLastCalledWith({}, { something: 'extra' });
+      index.build({ configPath: '/some/path/to/config', loaders: [{}] });
+      expect(build).toHaveBeenLastCalledWith({}, [{}]);
     });
 
     it('should return the production build configuration object', () => {

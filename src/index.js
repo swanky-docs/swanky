@@ -12,15 +12,15 @@ process.noDeprecation = true;
 module.exports = {
   devServer: (options) => {
     const swankyConfigFilePath = options && options.configPath ? options.configPath : '';
-    const webpackExtendConfig = options && options.webpackConfig ? options.webpackConfig : {};
+    const loaders = options && options.loaders ? options.loaders : [];
     const isDebugMode = options && options.debug ? options.debug : false;
 
-    return serve(createConfig(swankyConfigFilePath), webpackExtendConfig, isDebugMode);
+    return serve(createConfig(swankyConfigFilePath), loaders, isDebugMode);
   },
   build: (options) => {
     const swankyConfigFilePath = options && options.configPath ? options.configPath : '';
-    const webpackExtendConfig = options && options.webpackConfig ? options.webpackConfig : {};
+    const loaders = options && options.loaders ? options.loaders : [];
 
-    return build(createConfig(swankyConfigFilePath), webpackExtendConfig);
+    return build(createConfig(swankyConfigFilePath), loaders);
   }
 };

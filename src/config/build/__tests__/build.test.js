@@ -9,7 +9,11 @@ jest.mock('./../../webpack/webpack.config');
 const webpackConfig = require('./../../webpack/webpack.config');
 
 webpackConfig.mockImplementation(() => {
-  return {};
+  return {
+    module: {
+      rules: []
+    }
+  };
 });
 
 describe('buildConfig', () => {
@@ -18,10 +22,18 @@ describe('buildConfig', () => {
   });
 
   it('should create a production webpack config', () => {
-    expect(buildConfig(swankyConfig)).toEqual({});
+    expect(buildConfig(swankyConfig)).toEqual({
+      module: {
+        rules: []
+      }
+    });
   });
 
   it('should allow extended configuration', () => {
-    expect(buildConfig(swankyConfig, extendedConfig)).toEqual(extendedConfig);
+    expect(buildConfig(swankyConfig, extendedConfig)).toEqual({
+      module: {
+        rules: [{extended: 'config'}]
+      }
+    });
   });
 });

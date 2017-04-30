@@ -2,7 +2,6 @@
 
 let browserSync = require('browser-sync');  // Allow this dependency to be overwritten with rewire()
 const path = require('path');
-const _ = require('lodash');
 const webpack = require('webpack');
 const greet = require('./actions/greet');
 const webpackDevMiddleware = require('webpack-dev-middleware');
@@ -12,11 +11,11 @@ const DEFAULTS = require('../../constants.js');
 /**
  * Create dev config for webpackConfig
  * @param  {Object} swankyConfig - The swanky.config.yml file configuration
- * @param  {Object} webpackExtendConfig - User extended webpack configuration
+ * @param  {Object} loaders - User extended webpack loaders configuration
  * @param {Boolean} isDebugMode - display debugging logs
  * @return {Object} result - browserSync config Object
  */
-module.exports = (swankyConfig, webpackExtendConfig, isDebugMode) => {
+module.exports = (swankyConfig, loaders, isDebugMode) => {
 
   if (process.env.NODE_ENV !== 'test') {
     greet();
@@ -25,8 +24,9 @@ module.exports = (swankyConfig, webpackExtendConfig, isDebugMode) => {
   const webpackDevConfig = require(DEFAULTS.DEV.WEBPACK_CONFIG);
   const webpackConfig = require(DEFAULTS.WEBPACK_BASE_CONFIG)(webpackDevConfig, swankyConfig);
 
-  if (webpackExtendConfig) {
-    _.merge(webpackConfig, webpackExtendConfig);
+  // extend webpack config with any additional user specified loaders
+  if (loaders && webpackConfig.module) {
+    webpackConfig.module.rules = webpackConfig.module.rules.concat(loaders);
   }
 
   const bundler = webpack(webpackConfig);
