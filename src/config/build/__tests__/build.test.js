@@ -36,4 +36,18 @@ describe('buildConfig', () => {
       }
     });
   });
+
+  it('should call the webpackMutatorFn before returning the configuration', () => {
+    let mutatorFn = (config) => {
+      config.context = 'foo';
+      return config;
+    };
+
+    expect(buildConfig(swankyConfig, extendedConfig, mutatorFn)).toEqual({
+      module: {
+        rules: [{extended: 'config'}]
+      },
+      context: 'foo'
+    });
+  });
 });
