@@ -15,11 +15,9 @@ branches:
 # what combinations to test
 environment:
   matrix:
-    - nodejs_version: 7
+    - nodejs_version: 8
       job_part: test
     - nodejs_version: 6
-      job_part: test
-    - nodejs_version: 4
       job_part: test
 
 shallow_clone: true
