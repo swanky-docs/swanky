@@ -28,6 +28,9 @@ webpackConfig.mockImplementation(() => {
   return {
     output: {
       publicPath: ''
+    },
+    module: {
+      rules: []
     }
   };
 });
@@ -106,5 +109,16 @@ describe('Serve config', () => {
 
     serve(mockConfig, { some: 'extra-prop' }, true);
     expect(browserSync).toHaveBeenLastCalledWith(expectedBrowserSyncConfig);
+  });
+
+
+  it('should call the webpackMutatorFn before passing the webpack config to webpack()', () => {
+    let mutatorFn = (config) => {
+      config.context = 'foo';
+      return config;
+    };
+
+    serve(mockConfig, { some: 'extra-prop' }, true, mutatorFn);
+    expect(webpack).toHaveBeenLastCalledWith(jasmine.objectContaining({context: 'foo'}));
   });
 });

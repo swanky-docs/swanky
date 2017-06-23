@@ -12,21 +12,24 @@ const DEFAULTS = require('../../constants.js');
  * @param  {Object} swankyConfig - The swanky.config.yml file configuration
  * @param  {Object} loaders - User extended webpack loaders configuration
  * @param {Boolean} isDebugMode - display debugging logs
+ * @param {Function} [webpackConfigMutatorFn=identity function] - hook to allow users to mutate the Webpack config
  * @return {Object} result - browserSync config Object
  */
-module.exports = (swankyConfig, loaders, isDebugMode) => {
+module.exports = (swankyConfig, loaders, isDebugMode, webpackConfigMutatorFn = (x) => x) => {
 
   if (process.env.NODE_ENV !== 'test') {
     greet();
   }
 
   const webpackDevConfig = require(DEFAULTS.DEV.WEBPACK_CONFIG);
-  const webpackConfig = require(DEFAULTS.WEBPACK_BASE_CONFIG)(webpackDevConfig, swankyConfig);
+  let webpackConfig = require(DEFAULTS.WEBPACK_BASE_CONFIG)(webpackDevConfig, swankyConfig);
 
   // extend webpack config with any additional user specified loaders
   if (loaders && webpackConfig.module) {
     webpackConfig.module.rules = webpackConfig.module.rules.concat(loaders);
   }
+
+  webpackConfig = webpackConfigMutatorFn(webpackConfig);
 
   const bundler = webpack(webpackConfig);
   let webpackDevMiddlewareConfig = {};

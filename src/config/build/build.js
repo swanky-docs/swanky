@@ -8,9 +8,10 @@ const webpackBaseConfig = require(DEFAULTS.WEBPACK_BASE_CONFIG);
  * Create production config for webpack
  * @param  {Object} swankyConfig  - The swanky.config.yml file configuration
  * @param  {Array} loaders - User extended webpack configuration
+ * @param {Function} [webpackConfigMutatorFn=identity function] - hook to allow users to mutate the Webpack config
  * @return {Object} - Webpack configuration
  */
-module.exports = (swankyConfig, loaders) => {
+module.exports = (swankyConfig, loaders, webpackConfigMutatorFn = (x) => x) => {
 
   let webpackConfig = webpackBaseConfig(webpackProdConfig, swankyConfig);
 
@@ -19,5 +20,5 @@ module.exports = (swankyConfig, loaders) => {
     webpackConfig.module.rules = webpackConfig.module.rules.concat(loaders);
   }
 
-  return webpackConfig;
+  return webpackConfigMutatorFn(webpackConfig);
 };

@@ -14,13 +14,15 @@ module.exports = {
     const swankyConfigFilePath = options && options.configPath ? options.configPath : '';
     const loaders = options && options.loaders ? options.loaders : [];
     const isDebugMode = options && options.debug ? options.debug : false;
+    const configFn = options && options.configFn ? options.configFn : (x) => x;   // Identity function is default value
 
-    return serve(createConfig(swankyConfigFilePath), loaders, isDebugMode);
+    return serve(createConfig(swankyConfigFilePath), loaders, isDebugMode, configFn);
   },
   build: (options) => {
     const swankyConfigFilePath = options && options.configPath ? options.configPath : '';
     const loaders = options && options.loaders ? options.loaders : [];
+    const configFn = options && options.configFn ? options.configFn : (x) => x;   // Identity function is default value
 
-    return build(createConfig(swankyConfigFilePath), loaders);
+    return build(createConfig(swankyConfigFilePath), loaders, configFn);
   }
 };
