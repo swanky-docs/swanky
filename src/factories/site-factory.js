@@ -67,20 +67,24 @@ const getSubSections = (toppage, page) => {
 
       // Check for subsections
       const children = getSubSections(toppage, childPage);
-      const childPageKey = getKey(toppage.title, page.title);
+      const childPageKey = getKey(childPage.title, toppage.title);
 
-      return {
-        parent: page,
+      var pageToReturn = {
         key: childPageKey,
         title: childPage.title,
-        children: children,
         url: `${_.kebabCase(toppage.title)}/${_.kebabCase(childPage.title)}.html`
       };
+
+      if(children) {
+        pageToReturn.children = children;
+      }
+
+      return pageToReturn;
     });
   } else {
     return undefined;
   }
-}
+};
 
 const getSourcePath = (src) => {
   return src ? path.join(basePath, src) : path.join(basePath, DEFAULTS.SITE_CONFIG.src);
