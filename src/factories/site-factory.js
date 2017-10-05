@@ -51,23 +51,36 @@ const getSiteNavigation = (sections) => {
       title: page.title,
       url: index !== 0 ? `${_.kebabCase(page.title)}.html` : 'index.html'
     };
-
-    // Second level
+    // Recursive levels
     if (page.subSections) {
-      section.children = page.subSections.map((childPage) => {
-        const childPageKey = getKey(childPage.title, page.title);
-
-        return {
-          key: childPageKey,
-          title: childPage.title,
-          url: `${_.kebabCase(page.title)}/${_.kebabCase(childPage.title)}.html`
-        };
-      });
+      section.children = getSubSections(page, page);
     }
 
     return section;
   });
 };
+
+const getSubSections = (toppage, page) => {
+      if (page.subSections) {
+        return page.subSections.map((childPage) => {
+          // Check for subsections
+          const children = getSubSections(toppage, childPage);
+
+          const childPageKey = getKey(toppage.title, page.title);
+
+          return {
+            parent: page,
+            key: childPageKey,
+            title: childPage.title,
+            children: children,
+            url: `${_.kebabCase(toppage.title)}/${_.kebabCase(childPage.title)}.html`
+          };
+        });
+      }
+      else {
+        return undefined;
+      }
+}
 
 const getSourcePath = (src) => {
   return src ? path.join(basePath, src) : path.join(basePath, DEFAULTS.SITE_CONFIG.src);
