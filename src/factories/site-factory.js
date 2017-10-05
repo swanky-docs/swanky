@@ -51,6 +51,7 @@ const getSiteNavigation = (sections) => {
       title: page.title,
       url: index !== 0 ? `${_.kebabCase(page.title)}.html` : 'index.html'
     };
+
     // Recursive levels
     if (page.subSections) {
       section.children = getSubSections(page, page);
@@ -61,25 +62,24 @@ const getSiteNavigation = (sections) => {
 };
 
 const getSubSections = (toppage, page) => {
-      if (page.subSections) {
-        return page.subSections.map((childPage) => {
-          // Check for subsections
-          const children = getSubSections(toppage, childPage);
+  if (page.subSections) {
+    return page.subSections.map((childPage) => {
 
-          const childPageKey = getKey(toppage.title, page.title);
+      // Check for subsections
+      const children = getSubSections(toppage, childPage);
+      const childPageKey = getKey(toppage.title, page.title);
 
-          return {
-            parent: page,
-            key: childPageKey,
-            title: childPage.title,
-            children: children,
-            url: `${_.kebabCase(toppage.title)}/${_.kebabCase(childPage.title)}.html`
-          };
-        });
-      }
-      else {
-        return undefined;
-      }
+      return {
+        parent: page,
+        key: childPageKey,
+        title: childPage.title,
+        children: children,
+        url: `${_.kebabCase(toppage.title)}/${_.kebabCase(childPage.title)}.html`
+      };
+    });
+  } else {
+    return undefined;
+  }
 }
 
 const getSourcePath = (src) => {
