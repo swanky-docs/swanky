@@ -12,8 +12,20 @@ const getSiteMetadata = require('./get-site-metadata');
  * @returns {Object} - Configuration object containing "built" swanky config plus additional meta data, to be used by Webpack
  */
 function createConfig(swankyConfigFilePath) {
-  const configPath = swankyConfigFilePath ? path.join(process.cwd(), swankyConfigFilePath) : path.join(process.cwd(), DEFAULTS.SWANKY_CONFIG);
-  const swankyConfig = loadConfig(configPath);
+  let configPath;
+  let swankyConfig;
+
+  if (swankyConfigFilePath && typeof swankyConfigFilePath === 'string') {
+    configPath = path.join(process.cwd(), swankyConfigFilePath);
+    swankyConfig = loadConfig(configPath);
+  } else if (swankyConfigFilePath) {
+    // Use the provided configuration object
+    swankyConfig = swankyConfigFilePath;
+  } else {
+    // Just load the default config
+    configPath = path.join(process.cwd(), DEFAULTS.SWANKY_CONFIG);
+    swankyConfig = loadConfig(configPath);
+  }
 
   // Setup initial site metadata
   swankyConfig.meta = getSiteMetadata(swankyConfig);
