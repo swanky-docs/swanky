@@ -1,0 +1,36 @@
+# appveyor file
+# http://www.appveyor.com/docs/appveyor-yml
+
+build: off
+
+os: unstable
+
+platform:
+  - x64
+
+branches:
+  only:
+    - master
+
+# what combinations to test
+environment:
+  matrix:
+    - nodejs_version: 6
+      job_part: test
+
+shallow_clone: true
+
+skip_tags: true
+
+cache:
+  - node_modules -> package.json
+
+install:
+  - ps: Install-Product node $env:nodejs_version
+  - npm install
+  - npm prune
+
+test_script:
+  - node --version
+  - npm --version
+  - npm run verify
