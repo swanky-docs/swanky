@@ -25,6 +25,8 @@ function compileSnippet(template, templateData, siteMeta) {
     const templatePath = path.join(template, 'template.html');
     const pattern = new RegExp('[\/]' + templatePath + '$');
 
+    console.log(pattern);
+
     if (val.path.match(pattern)) {
       filePathIndex = index;
     }

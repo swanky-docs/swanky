@@ -17,6 +17,7 @@ module.exports = function() {
 
   const scripts = matches.map((match) => {
     const scriptPath = match.path.replace(process.cwd() + path.sep, '');
+
     return `require('${scriptPath}');`;
   });
 
