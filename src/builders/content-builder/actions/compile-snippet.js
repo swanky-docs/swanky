@@ -22,8 +22,7 @@ function compileSnippet(template, templateData, siteMeta) {
   let filePathIndex = -1;
 
   filePaths.forEach((val, index) => {
-    const templatePath = path.join(template, 'template.html');
-    const pathRegex = path.sep === '/' ? '[\/]' : '[\\]'; // mac / windows path seperator
+    const pathRegex = path.sep === '/' ? '[/]' : '[\\\\]'; // mac / windows path seperator
     const pattern = new RegExp(pathRegex + templatePath + '$');
 
     if (val.path.match(pattern)) {

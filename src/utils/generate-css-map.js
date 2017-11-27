@@ -12,7 +12,6 @@ const preprocessCss = require('./preprocess-css');
  * @return {object} - the css modules map object
  */
 module.exports = (cssFolderPath, cssFileName, cssScopedName) => {
-
   hook({
     generateScopedName: cssScopedName,
     extensions: ['.styl'],
