@@ -16,9 +16,9 @@ module.exports = function() {
   });
 
   const scripts = matches.map((match) => {
-    const scriptPath = match.path.replace(process.cwd() + path.sep, '');
+    const scriptPath = match.path.replace(process.cwd() + path.sep, '').replace('\\', '/');
 
-    return `require('${path.normalize(scriptPath)}');`;
+    return `require('scriptPath');`;
   });
 
   const modifiedSource = `'use strict'\nmodule.exports = (function() {
