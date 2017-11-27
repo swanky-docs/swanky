@@ -16,7 +16,7 @@ module.exports = function() {
   });
 
   const scripts = matches.map((match) => {
-    const scriptPath = match.path.replace(process.cwd() + path.sep, '').replace('\\', '/');
+    const scriptPath = match.path.replace(process.cwd() + path.sep, '').replace(/\\/g, '/');
 
     return `require('${scriptPath}');`;
   });
