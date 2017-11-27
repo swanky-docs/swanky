@@ -1,5 +1,6 @@
 'use strict';
 
+const path = require('path');
 const walkSync = require('klaw-sync');
 const loaderUtils = require('loader-utils');
 
@@ -15,7 +16,8 @@ module.exports = function() {
   });
 
   const scripts = matches.map((match) => {
-    return `require('${match.path.replace(process.cwd() + '/', '')}');`;
+    const scriptPath = match.path.replace(process.cwd() + path.sep, '');
+    return `require('${scriptPath}');`;
   });
 
   const modifiedSource = `'use strict'\nmodule.exports = (function() {
