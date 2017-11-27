@@ -11,7 +11,8 @@ const DEFAULTS = require('./../../constants.js');
 module.exports = (CONFIG, SWANKY_CONFIG) => {
   const BASE_PATH = process.cwd();
   const SECTIONS_CONFIG = getSectionsConfig(SWANKY_CONFIG.sections, SWANKY_CONFIG.meta);
-  const THEME_REGEX = new RegExp(`${SWANKY_CONFIG.meta.theme}.*index.styl`);
+  const THEME_PATH = `${SWANKY_CONFIG.meta.theme}.*index.styl`.replace(/\\/g, '\\\\');
+  const THEME_REGEX = new RegExp(THEME_PATH);
 
   const WEBPACK_CONFIG = {
     devtool: CONFIG.devtool,

@@ -35,6 +35,7 @@ function createConfig(swankyConfigFilePath) {
     DEFAULTS.CSS_THEME_ENTRY,
     DEFAULTS.CSS_SCOPED_NAME
   );
+
   swankyConfig.meta.production = process.env.NODE_ENV === DEFAULTS.PROD.LABEL;
 
   return swankyConfig;
