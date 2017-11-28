@@ -4,27 +4,28 @@
 
 [![NPM Version](https://img.shields.io/npm/v/swanky.svg)](http://npm.im/swanky)
 [![Build Status](https://travis-ci.org/swanky-docs/swanky.svg?branch=master)](https://travis-ci.org/swanky-docs/swanky)
+[https://ci.appveyor.com/api/projects/status/32r7s2skrgm9ubva/swanky-docs/swanky?svg=true](https://ci.appveyor.com/api/projects/status/32r7s2skrgm9ubva/swanky-docs/swanky?svg=true)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/swanky-docs/swanky)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 [![codecov.io](https://codecov.io/github/swanky-docs/swanky/coverage.svg?branch=master)](https://codecov.io/github/swanky-docs/swanky?branch=master)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)]()
 
 ### What is Swanky Docs?
-Swanky Docs is a framework that enables you to create beautiful documentation from any source. 
-Swanky Docs is basically a static site generator that has been specifically designed to build documentation. Because 
-Swanky Docs can be easily configured to 'stitch' together multiple sources of content it lends 
+Swanky Docs is a framework that enables you to create beautiful documentation from any source.
+Swanky Docs is basically a static site generator that has been specifically designed to build documentation. Because
+Swanky Docs can be easily configured to 'stitch' together multiple sources of content it lends
 itself very well to building [Pattern Libraries](https://patterns.swanky-docs.org/).
 
 ### Why Swanky Docs?
-Unlike many other documentation tools that are focused on building documentation from one type of source e.g. [JSDocs](http://usejsdoc.org/), 
-[Markdown](https://daringfireball.net/projects/markdown/), [Swagger](http://swagger.io/) etc. Swanky Docs can be configured to process 
+Unlike many other documentation tools that are focused on building documentation from one type of source e.g. [JSDocs](http://usejsdoc.org/),
+[Markdown](https://daringfireball.net/projects/markdown/), [Swagger](http://swagger.io/) etc. Swanky Docs can be configured to process
 multiple source types to build a comprehensive documentation asset, it can even combine multiple source types into single pages.
 
 ---
 
 ## Quick Start Guide
 
-Swanky can be installed independently or configured for you using the [swanky-cli](https://github.com/swanky-docs/swanky-cli) tool. 
+Swanky can be installed independently or configured for you using the [swanky-cli](https://github.com/swanky-docs/swanky-cli) tool.
 If you encounter any problems, please submit a [GitHub issue](https://github.com/swanky-docs/swanky/issues) and we'll do our best to help you with it.
 
 ```
@@ -39,7 +40,7 @@ View the full user guide documentation [here](https://guide.swanky-docs.org/).
 ## Changelog
 
 Details changes for each release are documented in the [release notes](https://github.com/swanky-docs/swanky/releases).
-    
+
 <!--[RM_CONTRIBUTING]-->
 ## Contributing
 
