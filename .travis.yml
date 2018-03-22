@@ -4,15 +4,12 @@ notifications:
   email: false
 node_js:
   - '8'
-install:
-  - yarn install
-before_script:
-  - npm prune
 script:
-  - npm run pre-release
+  - yarn install
+  - yarn pre-release
 after_success:
-  - npm run report-coverage
-  - npm run semantic-release
+  - yarn report-coverage
+  - yarn semantic-release
 branches:
   except:
     - /^v\d+\.\d+\.\d+$/
