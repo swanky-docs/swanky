@@ -55,10 +55,10 @@ module.exports = (CONFIG, SWANKY_CONFIG) => {
             fallback: 'style-loader',
             use: [
               {
-                loader: 'css-loader'
+                loader: require.resolve('css-loader')
               },
               {
-                loader: 'less-loader'
+                loader: require.resolve('less-loader')
               }
             ]
           })
@@ -69,10 +69,10 @@ module.exports = (CONFIG, SWANKY_CONFIG) => {
             fallback: 'style-loader',
             use: [
               {
-                loader: 'css-loader'
+                loader: require.resolve('css-loader')
               },
               {
-                loader: 'sass-loader'
+                loader: require.resolve('sass-loader')
               }
             ]
           })
@@ -83,7 +83,7 @@ module.exports = (CONFIG, SWANKY_CONFIG) => {
             fallback: 'style-loader',
             use: [
               {
-                loader: 'css-loader',
+                loader: require.resolve('css-loader'),
                 query: {
                   importLoaders: 1,
                   modules: true,
@@ -91,7 +91,7 @@ module.exports = (CONFIG, SWANKY_CONFIG) => {
                 }
               },
               {
-                loader: 'stylus-loader'
+                loader: require.resolve('stylus-loader')
               }
             ]
           })
@@ -103,10 +103,10 @@ module.exports = (CONFIG, SWANKY_CONFIG) => {
             fallback: 'style-loader',
             use: [
               {
-                loader: 'css-loader'
+                loader: require.resolve('css-loader')
               },
               {
-                loader: 'stylus-loader'
+                loader: require.resolve('stylus-loader')
               }
             ]
           })
@@ -115,7 +115,7 @@ module.exports = (CONFIG, SWANKY_CONFIG) => {
           test: DEFAULTS.REGEX.LANGUAGE.JS,
           exclude: /node_modules/,
           use: [{
-            loader: 'babel-loader',
+            loader: require.resolve('babel-loader'),
             query: {
               presets: ['babel-preset-es2015'].map(require.resolve)
             }
@@ -123,13 +123,13 @@ module.exports = (CONFIG, SWANKY_CONFIG) => {
         },
         {
           test: DEFAULTS.REGEX.LANGUAGE.HTML,
-          use: 'html-loader'
+          use: require.resolve('html-loader')
         },
         {
           test: DEFAULTS.REGEX.ASSETS.FONTS,
           use: [
             {
-              loader: 'url-loader',
+              loader: require.resolve('url-loader'),
               query: {
                 limit: 10000,
                 name: 'assets/fonts/[name].[hash:7].[ext]'
@@ -141,7 +141,7 @@ module.exports = (CONFIG, SWANKY_CONFIG) => {
           test: DEFAULTS.REGEX.ASSETS.IMAGES,
           use: [
             {
-              loader: 'url-loader',
+              loader: require.resolve('url-loader'),
               query: {
                 limit: 10000,
                 name: 'assets/img/[name].[hash:7].[ext]'
