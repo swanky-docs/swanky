@@ -29,9 +29,7 @@ module.exports = (CONFIG, SWANKY_CONFIG) => {
     output: {
       path: SWANKY_CONFIG.meta.output,
       filename: '[name].[hash:8].bundle.js',
-      publicPath: SWANKY_CONFIG.meta.production
-        ? SWANKY_CONFIG.meta.serverPath
-        : '/'
+      publicPath: SWANKY_CONFIG.meta.production ? SWANKY_CONFIG.meta.serverPath : '/'
     },
     resolve: {
       extensions: ['.js', '.json', '.styl', '.less', '.scss'],
