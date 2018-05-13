@@ -10,8 +10,14 @@ const DEFAULTS = require('./../../constants.js');
 
 module.exports = (CONFIG, SWANKY_CONFIG) => {
   const BASE_PATH = process.cwd();
-  const SECTIONS_CONFIG = getSectionsConfig(SWANKY_CONFIG.sections, SWANKY_CONFIG.meta);
-  const THEME_PATH = `${SWANKY_CONFIG.meta.theme}.*index.styl`.replace(/\\/g, '\\\\');
+  const SECTIONS_CONFIG = getSectionsConfig(
+    SWANKY_CONFIG.sections,
+    SWANKY_CONFIG.meta
+  );
+  const THEME_PATH = `${SWANKY_CONFIG.meta.theme}.*index.styl`.replace(
+    /\\/g,
+    '\\\\'
+  );
   const THEME_REGEX = new RegExp(THEME_PATH);
 
   const WEBPACK_CONFIG = {
@@ -23,7 +29,9 @@ module.exports = (CONFIG, SWANKY_CONFIG) => {
     output: {
       path: SWANKY_CONFIG.meta.output,
       filename: '[name].[hash:8].bundle.js',
-      publicPath: SWANKY_CONFIG.meta.production ? SWANKY_CONFIG.meta.serverPath : '/'
+      publicPath: SWANKY_CONFIG.meta.production
+        ? SWANKY_CONFIG.meta.serverPath
+        : '/'
     },
     resolve: {
       extensions: ['.js', '.json', '.styl', '.less', '.scss'],
@@ -31,131 +39,151 @@ module.exports = (CONFIG, SWANKY_CONFIG) => {
       modules: [BASE_PATH, 'node_modules', 'src/loaders'],
       mainFiles: ['index'],
       alias: {
-        'assets': path.resolve(BASE_PATH, SWANKY_CONFIG.meta.src, 'assets')
+        assets: path.resolve(BASE_PATH, SWANKY_CONFIG.meta.src, 'assets')
       }
     },
     resolveLoader: {
       alias: {
-        'swanky-docs-loader': path.join(__dirname, './../../loaders/swanky-docs-loader')
+        'swanky-docs-loader': path.join(
+          __dirname,
+          './../../loaders/swanky-docs-loader'
+        )
       }
     },
 
     module: {
       rules: [
         {
-          test: DEFAULTS.REGEX.STYLES.CSS,
-          use: ExtractTextPlugin.extract({
-            fallback: 'style-loader',
-            use: 'css-loader'
-          })
-        },
-        {
-          test: DEFAULTS.REGEX.STYLES.LESS,
-          use: ExtractTextPlugin.extract({
-            fallback: 'style-loader',
-            use: [
-              {
-                loader: require.resolve('css-loader')
-              },
-              {
-                loader: require.resolve('less-loader')
-              }
-            ]
-          })
-        },
-        {
-          test: DEFAULTS.REGEX.STYLES.SASS,
-          use: ExtractTextPlugin.extract({
-            fallback: 'style-loader',
-            use: [
-              {
-                loader: require.resolve('css-loader')
-              },
-              {
-                loader: require.resolve('sass-loader')
-              }
-            ]
-          })
-        },
-        {
-          test: THEME_REGEX,
-          use: ExtractTextPlugin.extract({
-            fallback: 'style-loader',
-            use: [
-              {
-                loader: require.resolve('css-loader'),
-                query: {
-                  importLoaders: 1,
-                  modules: true,
-                  localIdentName: SWANKY_CONFIG.meta.cssScopedName,
+          // "oneOf" will traverse all following loaders until one will
+          // match the requirements. When no loader matches it will fall
+          // back to the "file" loader at the end of the loader list.
+          oneOf: [
+            {
+              test: DEFAULTS.REGEX.STYLES.CSS,
+              use: ExtractTextPlugin.extract({
+                fallback: 'style-loader',
+                use: 'css-loader'
+              })
+            },
+            {
+              test: DEFAULTS.REGEX.STYLES.LESS,
+              use: ExtractTextPlugin.extract({
+                fallback: 'style-loader',
+                use: [
+                  {
+                    loader: require.resolve('css-loader')
+                  },
+                  {
+                    loader: require.resolve('less-loader')
+                  }
+                ]
+              })
+            },
+            {
+              test: DEFAULTS.REGEX.STYLES.SASS,
+              use: ExtractTextPlugin.extract({
+                fallback: 'style-loader',
+                use: [
+                  {
+                    loader: require.resolve('css-loader')
+                  },
+                  {
+                    loader: require.resolve('sass-loader')
+                  }
+                ]
+              })
+            },
+            {
+              test: THEME_REGEX,
+              use: ExtractTextPlugin.extract({
+                fallback: 'style-loader',
+                use: [
+                  {
+                    loader: require.resolve('css-loader'),
+                    query: {
+                      importLoaders: 1,
+                      modules: true,
+                      localIdentName: SWANKY_CONFIG.meta.cssScopedName
+                    }
+                  },
+                  {
+                    loader: require.resolve('stylus-loader')
+                  }
+                ]
+              })
+            },
+            {
+              test: DEFAULTS.REGEX.STYLES.STYLUS,
+              exclude: THEME_REGEX,
+              use: ExtractTextPlugin.extract({
+                fallback: 'style-loader',
+                use: [
+                  {
+                    loader: require.resolve('css-loader')
+                  },
+                  {
+                    loader: require.resolve('stylus-loader')
+                  }
+                ]
+              })
+            },
+            {
+              test: DEFAULTS.REGEX.LANGUAGE.JS,
+              exclude: /node_modules/,
+              use: [
+                {
+                  loader: require.resolve('babel-loader'),
+                  options: {
+                    cacheDirectory: false,
+                    presets: ['@babel/preset-env'].map(require.resolve)
+                  }
                 }
-              },
-              {
-                loader: require.resolve('stylus-loader')
-              }
-            ]
-          })
-        },
-        {
-          test: DEFAULTS.REGEX.STYLES.STYLUS,
-          exclude: THEME_REGEX,
-          use: ExtractTextPlugin.extract({
-            fallback: 'style-loader',
-            use: [
-              {
-                loader: require.resolve('css-loader')
-              },
-              {
-                loader: require.resolve('stylus-loader')
-              }
-            ]
-          })
-        },
-        {
-          test: DEFAULTS.REGEX.LANGUAGE.JS,
-          exclude: /node_modules/,
-          use: [{
-            loader: require.resolve('babel-loader'),
-            query: {
-              presets: ['babel-preset-es2015'].map(require.resolve)
-            }
-          }]
-        },
-        {
-          test: DEFAULTS.REGEX.LANGUAGE.HTML,
-          use: require.resolve('html-loader')
-        },
-        {
-          test: DEFAULTS.REGEX.ASSETS.FONTS,
-          use: [
+              ]
+            },
             {
-              loader: require.resolve('url-loader'),
-              query: {
-                limit: 10000,
-                name: 'assets/fonts/[name].[hash:7].[ext]'
-              }
-            }
-          ],
-        },
-        {
-          test: DEFAULTS.REGEX.ASSETS.IMAGES,
-          use: [
+              test: DEFAULTS.REGEX.LANGUAGE.HTML,
+              use: require.resolve('html-loader')
+            },
             {
-              loader: require.resolve('url-loader'),
-              query: {
-                limit: 10000,
-                name: 'assets/img/[name].[hash:7].[ext]'
-              }
+              test: DEFAULTS.REGEX.ASSETS.FONTS,
+              use: [
+                {
+                  loader: require.resolve('url-loader'),
+                  query: {
+                    limit: 10000,
+                    name: 'assets/fonts/[name].[hash:7].[ext]'
+                  }
+                }
+              ]
+            },
+            {
+              test: DEFAULTS.REGEX.ASSETS.IMAGES,
+              use: [
+                {
+                  loader: require.resolve('url-loader'),
+                  query: {
+                    limit: 10000,
+                    name: 'assets/img/[name].[hash:7].[ext]'
+                  }
+                }
+              ]
             }
           ]
         }
       ]
     },
     plugins: [
-      new ExtractTextPlugin({filename: '[name].[hash:8].css', disable: false, allChunks: true, publicPath: BASE_PATH}),
+      new ExtractTextPlugin({
+        filename: '[name].[hash:8].css',
+        disable: false,
+        allChunks: true,
+        publicPath: BASE_PATH
+      }),
       new webpack.LoaderOptionsPlugin({
         options: {
-          context: path.resolve(path.join(SWANKY_CONFIG.meta.theme, DEFAULTS.CSS_THEME_FOLDER)),
+          context: path.resolve(
+            path.join(SWANKY_CONFIG.meta.theme, DEFAULTS.CSS_THEME_FOLDER)
+          ),
           swankyDocs: {
             sections: SECTIONS_CONFIG
           }
@@ -175,9 +203,14 @@ module.exports = (CONFIG, SWANKY_CONFIG) => {
   if (fs.existsSync(SWANKY_CONFIG.meta.snippets)) {
     // Add an entry point to bootstrap snippets
     const loader = require.resolve('./../../loaders/bootstrap-loader');
-    const template = path.join(__dirname, './../../loaders/bootstrap-loader/bootstrap-loader-template.js');
+    const template = path.join(
+      __dirname,
+      './../../loaders/bootstrap-loader/bootstrap-loader-template.js'
+    );
 
-    WEBPACK_CONFIG.entry['snippets'] = `${loader}?src=${SWANKY_CONFIG.meta.snippets}!${template}`;
+    WEBPACK_CONFIG.entry['snippets'] = `${loader}?src=${
+      SWANKY_CONFIG.meta.snippets
+    }!${template}`;
   }
 
   SECTIONS_CONFIG.forEach((page, index) => {
@@ -185,7 +218,8 @@ module.exports = (CONFIG, SWANKY_CONFIG) => {
       key: page.key,
       chunks: ['theme'],
       filename: !index ? 'index.html' : page.url,
-      template: 'html-loader!swanky-docs-loader?key=' + page.key + '!' + page.layoutSrc,
+      template:
+        'html-loader!swanky-docs-loader?key=' + page.key + '!' + page.layoutSrc,
       inject: true
     };
 
@@ -211,11 +245,13 @@ module.exports = (CONFIG, SWANKY_CONFIG) => {
     }
 
     // Create an instance of the HTML Webpack Plugin for each page
-    WEBPACK_CONFIG.plugins = WEBPACK_CONFIG.plugins.concat(new HtmlWebpackPlugin(htmlConfig));
+    WEBPACK_CONFIG.plugins = WEBPACK_CONFIG.plugins.concat(
+      new HtmlWebpackPlugin(htmlConfig)
+    );
   });
 
   // Plugins
-  CONFIG.plugins.forEach((plugin) => {
+  CONFIG.plugins.forEach(plugin => {
     WEBPACK_CONFIG.plugins.push(plugin);
   });
 
