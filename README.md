@@ -14,7 +14,7 @@
 Swanky Docs is a framework that enables you to create beautiful documentation from any source.
 Swanky Docs is basically a static site generator that has been specifically designed to build documentation. Because
 Swanky Docs can be easily configured to 'stitch' together multiple sources of content it lends
-itself very well to building [Pattern Libraries](https://patterns.swanky-docs.org/).
+itself very well to building [Pattern Libraries](https://swanky-docs.github.io/patterns.swanky-docs.org/).
 
 ### Why Swanky Docs?
 Unlike many other documentation tools that are focused on building documentation from one type of source e.g. [JSDocs](http://usejsdoc.org/),
@@ -34,7 +34,7 @@ npm install swanky --save-dev
 
 ## Documentation
 
-View the full user guide documentation [here](https://guide.swanky-docs.org/).
+View the full user guide documentation [here](https://swanky-docs.github.io/guide.swanky-docs.org/).
 
 
 ## Changelog
