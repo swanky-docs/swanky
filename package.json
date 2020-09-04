@@ -75,7 +75,7 @@
     "postcss-modules": "1.1.0",
     "request": "2.85.0",
     "sass-loader": "6.0.7",
-    "showdown": "1.8.6",
+    "showdown": "1.9.1",
     "showdown-highlight": "2.1.0",
     "style-loader": "0.21.0",
     "stylus": "0.54.5",
