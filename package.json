@@ -44,7 +44,7 @@
   "dependencies": {
     "@babel/core": "7.0.0-beta.46",
     "@babel/preset-env": "7.0.0-beta.46",
-    "async": "2.6.0",
+    "async": "2.6.4",
     "autoprefixer": "8.4.1",
     "babel-loader": "8.0.0-beta.2",
     "bluebird": "3.5.1",
